@@ -1,14 +1,11 @@
 <template>
     <Head title="Dashboard" />
-
-
     <section class="app-dashboard">
         <div class="card">
             <div class="card-body border-bottom">
                 <div class="card card-statistics">
                     <div class="card-header">
                         <vue-notification-list></vue-notification-list>
-
                         <h4 class="card-title">Settings</h4>
                     </div>
                     <div class="card-body statistics-body">
