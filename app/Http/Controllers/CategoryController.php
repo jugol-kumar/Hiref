@@ -19,22 +19,17 @@ class CategoryController extends Controller
     {
         return inertia('Category', [
             $search = Request::input('search'),
-        'categories' =>
-                Cache::remember('categories-'.\request('page', 1), now()->addDay(), function()use($search){
-                    return Category::query()
-                        ->when($search, function ($query, $search) {
-                            $query->where('name', 'like', "%{$search}%");
-                        })
-                        ->paginate(Request::input('perPage') ?? 10)
-                        ->withQueryString()
-                        ->through(fn($category) => [
-                            'id' => $category->id,
-                            'name' => $category->name,
-                            'slug' => $category->slug,
-                            'photo' => $category->photo,
-                        ]);
-                }),
-
+            Category::query()->when($search, function ($query, $search) {
+                    $query->where('name', 'like', "%{$search}%");
+                })
+                ->paginate(Request::input('perPage') ?? 10)
+                ->withQueryString()
+                ->through(fn($category) => [
+                    'id' => $category->id,
+                    'name' => $category->name,
+                    'slug' => $category->slug,
+                ]),
+            'parent_categories' => Category::where('parent_id', 0)->get(),
             'filters' => Request::only(['search','perPage']),
             'url' => URL::route('categories.index')
         ]);

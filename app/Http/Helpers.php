@@ -27,3 +27,9 @@ if (!function_exists('get_setting')) {
         return $setting == null ? $default : $setting->value;
     }
 }
+
+if (!function_exists('global_asset')){
+    function global_asset($key){
+        return $key;
+    }
+}

@@ -102,8 +102,7 @@ class BusinessSettingController extends Controller
                 'time' => now()
             ]);
 
-            session()->flash('success', 'Update Successfully Done...!');
-            return redirect()->route('setting.index')->with('mg', 'My message');
+            return redirect()->route('setting.index');
 
 //        }catch (\Exception $exception){
 //

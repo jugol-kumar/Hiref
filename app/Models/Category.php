@@ -10,15 +10,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method static where(string $string, int $int)
+ */
 class Category extends Model
 {
     use HasFactory, SoftDeletes, HasSlug;
 
-    protected $fillable = [
-        'name',
-        'photo',
-        'slug',
-    ];
+//    protected $fillable = [
+//        'name',
+//        'photo',
+//        'slug',
+//    ];
+
+    protected $guarded = ['id'];
 
     /**
      * Get the options for generating the slug.
@@ -45,27 +50,27 @@ class Category extends Model
     //     });
     // }
 
-    protected function photo(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => Storage::url($value),
-            set: fn ($value) => $value->store('image', 'public'),
-        );
-    }
+//    protected function photo(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn ($value) => Storage::url($value),
+//            set: fn ($value) => $value->store('image', 'public'),
+//        );
+//    }
 
-    public function sub_categories()
-    {
-        return $this->hasMany('App\Models\SubCategory');
-    }
-
-    public function child_categories()
-    {
-        return $this->hasMany('App\Models\ChildCategory');
-    }
-
-    public function questions()
-    {
-        return $this->hasMany('App\Models\Question');
-    }
+//    public function sub_categories()
+//    {
+//        return $this->hasMany('App\Models\SubCategory');
+//    }
+//
+//    public function child_categories()
+//    {
+//        return $this->hasMany('App\Models\ChildCategory');
+//    }
+//
+//    public function questions()
+//    {
+//        return $this->hasMany('App\Models\Question');
+//    }
 
 }

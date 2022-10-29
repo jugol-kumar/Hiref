@@ -5,9 +5,9 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- about company -->
                 <div class="mb-4">
-                    <img src="{{ asset("frontend") }}/assets/images/brand/logo/logo.svg" alt="">
+                    <img src="{{ config("app.url")."/storage/".get_setting('footer_logo')   }}" alt="">
                     <div class="mt-4">
-                        <p>Geek is feature-rich components and beautifully Bootstrap UIKit for developers, built with bootstrap responsive framework.</p>
+                        <p>{!! get_setting('app_details') !!}</p>
                         <!-- social media -->
                         <div class="fs-4 mt-4">
                             <a href="#" class="mdi mdi-facebook fs-4 text-muted me-2"></a>

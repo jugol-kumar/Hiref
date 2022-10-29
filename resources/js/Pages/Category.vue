@@ -51,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="category in categories.data" :key="category.id">
+                        <tr v-for="category in categories" :key="category.id">
                             <td>
                                 <div class="avatar  me-1">
                                     <img :src="category.photo" alt="{{ category.name }}" height="32" width="32">
