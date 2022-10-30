@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\BusinessSetting;
+use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('overWriteEnvFile')){
     function overWriteEnvFile($type, $val)
@@ -29,7 +30,22 @@ if (!function_exists('get_setting')) {
 }
 
 if (!function_exists('global_asset')){
-    function global_asset($key){
-        return $key;
+    function global_asset($key=null){
+        if ($key != null){
+            $exists = Storage::disk('public')->has($key);
+            if ($exists){
+                if (config('app.env' == 'local')){
+                    $url = config('app.url') ?? 'http://127.0.0.1:800/'."storage/".$key;
+                }else{
+                    $url = config('app.url')."/storage/".$key;
+                }
+            }else{
+                $url = config("app.url")."/images/img-placeholder2.webp";
+            }
+        }else{
+            $url = config("app.url")."/images/img-placeholder2.webp";
+        }
+
+        return $url;
     }
 }

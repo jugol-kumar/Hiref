@@ -14,11 +14,11 @@ class ChildCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response|\Inertia\ResponseFactory
      */
     public function index()
     {
-        return inertia('ChildCategory', [
+        return inertia('Backend/ChildCategory', [
             'child_categories' => ChildCategory::query()
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");

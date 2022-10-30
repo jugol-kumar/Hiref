@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @method static where(string $string, int $int)
+ * @method static create(array $array)
  */
 class Category extends Model
 {
@@ -35,6 +38,27 @@ class Category extends Model
             ->saveSlugsTo('slug');
     }
 
+    public function photos(){
+        return $this->morphMany(Gallery::class, 'imageable');
+    }
+
+
+//    public function categories(): HasMany
+//    {
+//        return $this->hasMany(Category::class, 'parent_id');
+//    }
+//
+//    public function childrenCategories(): HasMany
+//    {
+//        return $this->hasMany(Category::class, 'parent_id')->with('categories');
+//    }
+//
+//    public function parentCategory(): BelongsTo
+//    {
+//        return $this->belongsTo(Category::class, 'parent_id');
+//    }
+
+
     // protected static function boot() {
     //     parent::boot();
 
@@ -50,27 +74,27 @@ class Category extends Model
     //     });
     // }
 
-//    protected function photo(): Attribute
-//    {
-//        return Attribute::make(
-//            get: fn ($value) => Storage::url($value),
-//            set: fn ($value) => $value->store('image', 'public'),
-//        );
-//    }
+    protected function photo(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Storage::url($value),
+            set: fn ($value) => $value->store('image', 'public'),
+        );
+    }
 
-//    public function sub_categories()
-//    {
-//        return $this->hasMany('App\Models\SubCategory');
-//    }
-//
-//    public function child_categories()
-//    {
-//        return $this->hasMany('App\Models\ChildCategory');
-//    }
-//
-//    public function questions()
-//    {
-//        return $this->hasMany('App\Models\Question');
-//    }
+    public function sub_categories()
+    {
+        return $this->hasMany('App\Models\SubCategory');
+    }
+
+    public function child_categories()
+    {
+        return $this->hasMany('App\Models\ChildCategory');
+    }
+
+    public function questions()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
 
 }

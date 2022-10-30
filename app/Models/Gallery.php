@@ -14,7 +14,7 @@ class Gallery extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['imageable_id', 'imagable_type', 'filename'];
+    protected $fillable = ['imageable_id', 'imageable_type', 'filename'];
 
 
     public function imageable(): MorphTo
