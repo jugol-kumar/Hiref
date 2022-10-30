@@ -3,6 +3,7 @@
     <Head>
         <meta type="description" content="Information about my app" head-key="description">
     </Head>
+    <preloader v-if="show"></preloader>
     <div class="vertical-layout h-100 navbar-floating footer-static"
         :class="[layoutClasses]"
         :data-col="isNavMenuHidden ? '1-column' : null">
@@ -62,6 +63,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 import TopNav from './TopNav'
 import SideNav from './SideNav'
+import Preloader from "../components/Preloader";
 
 const store = useStore()
 const isNavMenuHidden = computed(() => store.state.menuHidden)
@@ -71,8 +73,6 @@ const toggleVerticalMenuActive = () => {
       store.commit('UPDATE_MENU_HIDDEN', !isNavMenuHidden.value)
       store.commit('UPDATE_MENU_ACTIVE', !isVerticalMenuActive.value)
   }
-
-
 
 
   const currentBreakpoint = ref('xl')
@@ -116,6 +116,15 @@ const toggleVerticalMenuActive = () => {
 
     onMounted(() => {
       window.addEventListener('resize', resizeHandler)
+    })
+
+    const show = ref()
+    show.value = true
+
+    onMounted(()=>{
+        setTimeout(()=>{
+            show.value = false
+        }, 1000)
     })
     onUnmounted(() => {
       window.removeEventListener('resize', resizeHandler)

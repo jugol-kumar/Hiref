@@ -15,11 +15,17 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->integer('parent_id')->unsigned()->nullable();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('photo')->nullable();
-            $table->timestamps();
+            $table->integer('level')->nullable();
+            $table->integer('order_level')->nullable();
+            $table->double('commission_rate')->nullable();
+            $table->tinyInteger('featured')->default(0);
+            $table->tinyInteger('digital')->default(0);
+            $table->tinyInteger('top')->default(0);
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

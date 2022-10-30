@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
@@ -10,15 +12,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method static where(string $string, int $int)
+ * @method static create(array $array)
+ */
 class Category extends Model
 {
     use HasFactory, SoftDeletes, HasSlug;
 
-    protected $fillable = [
-        'name',
-        'photo',
-        'slug',
-    ];
+//    protected $fillable = [
+//        'name',
+//        'photo',
+//        'slug',
+//    ];
+
+    protected $guarded = ['id'];
 
     /**
      * Get the options for generating the slug.
@@ -29,6 +37,27 @@ class Category extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function photos(){
+        return $this->morphMany(Gallery::class, 'imageable');
+    }
+
+
+//    public function categories(): HasMany
+//    {
+//        return $this->hasMany(Category::class, 'parent_id');
+//    }
+//
+//    public function childrenCategories(): HasMany
+//    {
+//        return $this->hasMany(Category::class, 'parent_id')->with('categories');
+//    }
+//
+//    public function parentCategory(): BelongsTo
+//    {
+//        return $this->belongsTo(Category::class, 'parent_id');
+//    }
+
 
     // protected static function boot() {
     //     parent::boot();

@@ -66,17 +66,21 @@ Route::any('logout', [LoginController::class, 'destroy'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::prefix('student')->middleware('is_student')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'student'])->name('dashboard');
+
     });
 
     Route::prefix('panel')->group(function () {
         Route::prefix('admin')->group(function(){
             Route::get('dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard');
+
+            Route::resource('categories', CategoryController::class);
+            Route::resource('sub_categories', SubCategoryController::class);
+            Route::resource('child_categories', ChildCategoryController::class);
+
+
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');
         });
-        Route::resource('categories', CategoryController::class);
-        Route::resource('sub_categories', SubCategoryController::class);
-        Route::resource('child_categories', ChildCategoryController::class);
 
 
         Route::prefix('instructor')->group(function(){

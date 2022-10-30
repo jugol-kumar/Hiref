@@ -17,7 +17,7 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        return inertia('SubCategory', [
+        return inertia('Backend/SubCategory', [
             'sub_categories' => SubCategory::query()
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");

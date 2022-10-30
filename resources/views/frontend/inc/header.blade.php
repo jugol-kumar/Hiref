@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-default p-0 px-8">
     <div class="container-fluid px-0">
         <a class="navbar-brand" href="/">
-            <img src="{{ asset("./images/HireF-logo.svg") }}" alt="" style="max-width: 150px; min-width: 150px;"/>
+            <img src="{{ config('app.url')."/storage/".get_setting('header_logo') }}" alt="" style="max-width: 150px; min-width: 150px;"/>
         </a>
         <!-- Button -->
         <button

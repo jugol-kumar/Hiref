@@ -15,13 +15,15 @@
                 :collapseTogglerIcon="collapseTogglerIcon"
             >
                 <ul class="nav navbar-nav flex-row">
-                    <li class="nav-item me-auto"><Link preserve-scroll class="navbar-brand"
+                    <li class="nav-item me-auto">
+                        <Link preserve-scroll class="navbar-brand"
                             href="#">
                             <span class="brand-logo">
                             </span>
 <!--                            <h2 class="brand-text">{{ this.$page.props.appName }}</h2>-->
                         <img :src="this.$page.props.logo" alt="logo" style="max-width: 120px; min-width: 120px;">
-                        </Link></li>
+                        </Link>
+                    </li>
                     <li class="nav-item nav-toggle">
                         <Link preserve-scroll class="nav-link modern-nav-toggle">
                             <Icon title="x" width="24" height="24" @click="toggleVerticalMenuActive" class="d-block d-xl-none" />
@@ -58,19 +60,19 @@
 
                     <ul class="menu-content">
                         <li @click="toggleSubMenu('Courses')">
-                            <Link preserve-scroll class="d-flex align-items-center" href="/panel/categories">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/categories`">
                                 <Icon title="circle" width="24" height="24" />
                                 <span class="menu-item text-truncate">Categories</span>
                             </Link>
                         </li>
                         <li @click="toggleSubMenu('Courses')">
-                            <Link preserve-scroll class="d-flex align-items-center" href="/panel/sub_categories">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/sub_categories`">
                                 <Icon title="circle" width="24" height="24" />
                                 <span class="menu-item text-truncate">Sub Categories</span>
                             </Link>
                         </li>
                         <li @click="toggleSubMenu('Courses')">
-                            <Link preserve-scroll class="d-flex align-items-center" href="/panel/child_categories">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/child_categories`">
                                 <Icon title="circle" width="24" height="24" />
                                 <span class="menu-item text-truncate">Child Categories</span>
                             </Link>
