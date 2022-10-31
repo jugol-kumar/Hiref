@@ -26,8 +26,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Category::factory()->has(\App\Models\SubCategory::factory()->count(10))->create();
         // \App\Models\Category::factory()->hasSub_categories(5)->create();
 
-        $path = public_path('sql/countries.sql');
-        $sql = file_get_contents($path);
+        $countries = public_path('sql/countries.sql');
+        $sql = file_get_contents($countries);
+        DB::unprepared($sql);
+
+        $cities = public_path('sql/cities.sql');
+        $sql = file_get_contents($cities);
         DB::unprepared($sql);
 
         \App\Models\User::create([

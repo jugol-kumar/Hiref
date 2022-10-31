@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BusinessSettingController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
@@ -77,6 +78,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('sub_categories', SubCategoryController::class);
             Route::resource('child_categories', ChildCategoryController::class);
 
+            Route::resource('companies', CompanyController::class);
 
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');
@@ -85,9 +87,10 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('instructor')->group(function(){
             Route::get('dashboard', [DashboardController::class, 'instructor'])->name('instructor.dashboard');
-
         });
     });
+
+
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

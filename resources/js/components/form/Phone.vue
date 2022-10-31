@@ -3,7 +3,7 @@
     <div class="input-group input-group-merge">
         <span class="input-group-text">BD (+88)</span>
         <input v-bind="$attrs" :value="modelValue" @input="updateValue" :placeholder="placeholder" class="form-control phone-number-mask">
-        <span v-if="error" class="error">{{ error }}</span>
+        <span v-if="error" class="error text-danger">{{ error }}</span>
     </div>
 </template>
 

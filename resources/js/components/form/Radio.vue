@@ -6,7 +6,7 @@
             <input class="form-check-input" :name="name" type="radio" :value="key" @input="updateValue" :id="key" :checked="modelValue === key">
             <label class="form-check-label" :for="key">{{ value }}</label>
         </div>
-        <span v-if="error" class="error">{{ error }}</span>
+        <span v-if="error" class="error text-danger">{{ error }}</span>
     </div>
 </template>
 

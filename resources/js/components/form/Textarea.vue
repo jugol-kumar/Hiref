@@ -2,7 +2,7 @@
     <label>{{ label }}: </label>
     <div class="mb-1">
     <textarea :value="modelValue" @input="updateValue" :placeholder="placeholder" class="form-control" :rows="rows"></textarea>
-    <span v-if="error" class="error">{{ error }}</span>
+    <span v-if="error" class="error text-danger">{{ error }}</span>
     </div>
 </template>
 
