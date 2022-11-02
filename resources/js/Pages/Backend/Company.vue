@@ -283,12 +283,15 @@ let props = defineProps({
     cities:Object,
     filters: Object,
     url: String,
-    errors:Object
+    errors:Object,
+    pageLogo:"",
+    pageCover:""
 });
 
 let isShow = ref({});
 let showItem = ref([])
 let editItem = ref({});
+
 
 let deleteItem = (id) => {
     Swal.fire({
@@ -348,7 +351,10 @@ let updateForm = useForm({
     city:'',
     website:'',
     address:'',
-    details:''
+    details:'',
+
+    showLogo:'',
+    showCover:''
 });
 
 
@@ -375,18 +381,21 @@ let newItem = () => {
 let showSingleItem = (id, edit=false) => {
     axios.get(props.url+"/"+id).then(res =>{
         if (edit){
-            editItem.value           = res.data
-            updateForm.name          = res.data.name
-            updateForm.type          = res.data.type
-            updateForm.email         = res.data.email
-            updateForm.phone         = res.data.phone
+            console.log(res);
+            let data = res.data.data;
+            editItem.value           = data
+            updateForm.logo          = res.data.logo
             updateForm.cover         = res.data.cover
-            updateForm.starting_date = res.data.starting_date
-            updateForm.employee_size = res.data.employee_size
-            updateForm.city          = res.data.city
-            updateForm.website       = res.data.website
-            updateForm.address       = res.data.address
-            updateForm.details       = res.data.details
+            updateForm.name          = data.name
+            updateForm.type          = data.type
+            updateForm.email         = data.email
+            updateForm.phone         = data.phone
+            updateForm.starting_date = data.starting_date
+            updateForm.employee_size = data.employee_size
+            updateForm.city          = data.city
+            updateForm.website       = data.website
+            updateForm.address       = data.address
+            updateForm.details       = data.details
             document.getElementById('editItem').$vb.modal.show()
         }else {
             alert(res.data.name);
@@ -400,6 +409,8 @@ let updateItem = (id) =>{
     Inertia.post(props.url+"/"+id+"/update", updateForm,{
         preserveState: true,
         onSuccess: (res) =>{
+            updateForm.reset();
+            document.getElementById('editItem').$vb.modal.hide()
             $sToast.fire({
                 icon: 'success',
                 text: 'Company Save Successfully done. 🙂'

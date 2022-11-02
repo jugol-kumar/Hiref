@@ -102,8 +102,6 @@ class CompanyController extends Controller
             if ($exists){
                 Storage::disk('public')->delete($company->photos[1]->filename);
             }
-
-
             $file = Request::file('logo')->store('companies/logo', 'public');
             Gallery::updateOrCreate([
                 'imageable_id' => $company->id,
@@ -121,11 +119,15 @@ class CompanyController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Company  $company
-     * @return Company
+     * @return array
      */
     public function show(Company $company)
     {
-        return $company->load('photos');
+        return $data =  [
+            "data" => $company->load('photos'),
+            "cover" => global_asset($company->photos->count() > 0 ? $company->photos[0]->filename : null),
+            "logo" => global_asset($company->photos->count() > 0 ? $company->photos[1]->filename : null),
+        ];
     }
 
     /**
@@ -184,11 +186,6 @@ class CompanyController extends Controller
                 'imageable_type' => 'App\\Models\\Company',
                 'filename' => $file
             ]);
-//            Gallery::updateOrCreate([
-//                'imageable_id' => $company->id,
-//                'imageable_type' => 'App\\Models\\Company',
-//                'filename' => $file
-//            ]);
         }
         if (Request::hasFile('logo')){
             $exists = Storage::disk('public')->has($company->photos->count() > 0 ? $company->photos[1]->filename : "null");
@@ -202,11 +199,6 @@ class CompanyController extends Controller
                 'imageable_type' => 'App\\Models\\Company',
                 'filename' => $file
             ]);
-//            Gallery::updateOrCreate([
-//                'imageable_id' => $company->id,
-//                'imageable_type' => 'App\\Models\\Company',
-//                'filename' => $file
-//            ]);
         }
 
 
