@@ -20,15 +20,25 @@ class CompanyController extends Controller
     public function index()
     {
         return inertia('Backend/Company', [
-            'companies' => Company::query()->with("photos")
+            'companies' => Company::query()->with(["photos", "companyCity"])
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
                 })
                 ->paginate(Request::input('perPage') ?? 10)
                 ->withQueryString()
                 ->through(fn($company) => [
-                    'id'    => $company->id,
-                    'name'  => $company->name,
+                    'id'            => $company->id,
+                    'name'          => $company->name,
+                    'email'         => $company->email,
+                    'phone'         => $company->phone,
+                    'type'          => $company->type,
+                    'logo'        => global_asset($company->photos->count() > 0 ? $company->photos[0]->filename : null),
+                    'starting_date' => $company->starting_date,
+                    'employee_size' => $company->employee_size,
+                    'city'          => $company->companyCity,
+                    'website'       => $company->website,
+                    'address'       => $company->address,
+                    'details'       => $company->details,
                 ]),
             'cities' => City::select('id','name', 'bn_name')->get(),
             'filters' => Request::only(['search','perPage']),
@@ -97,11 +107,11 @@ class CompanyController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
+     * @return Company
      */
     public function show(Company $company)
     {
-        //
+        return $company->load('photos');
     }
 
     /**

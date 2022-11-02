@@ -16,10 +16,11 @@
             </div>
         </div>
     </div>
+
+
     <section class="app-user-list">
 
-
-        <div class="card">
+        <!--<div class="card">
             <div class="card-header">
                 <h4 class="card-title">Collapsible</h4>
                 <div class="heading-elements">
@@ -42,85 +43,56 @@
                 </div>
             </div>
         </div>
-
-        <!-- list and filter start -->
+         list and filter start
         <div class="card mb-3">
             <div class="card-body">
                 <h4 class="card-title">Add New Company</h4>
-
             </div>
-        </div>
-        <div class="card">
-            <div  v-if="companies.data.length > 0 || search != null"  class="card-datatable table-responsive pt-0" >
-                <div class="d-flex justify-content-between align-items-center header-actions mx-0 row mt-75">
-                    <div class="col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start">
-                        <div class="select-search-area">
-                            <label>Show <select class="form-select" v-model="perPage">
+        </div>-->
+
+        <div v-if="companies.data.length > 0 || search != null" >
+            <div class="card"  >
+                <div  class="card-datatable table-responsive pt-0" >
+                    <div class="d-flex justify-content-between align-items-center header-actions mx-0 row">
+                        <div class="col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start">
+                            <div class="select-search-area">
+                                <label>Show <select class="form-select" v-model="perPage">
                                     <option :value="undefined">10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select> entries</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-lg-8 ps-xl-75 ps-0">
-                        <div
-                            class="d-flex align-items-center justify-content-center justify-content-lg-end flex-lg-nowrap flex-wrap">
-                            <div class="select-search-area">
-                                <label>Search:<input v-model="search" type="search" class="form-control"
-                                        placeholder="Type here for search"></label>
+                        <div class="col-sm-12 col-lg-8 ps-xl-75 ps-0">
+                            <div
+                                class="d-flex align-items-center justify-content-center justify-content-lg-end flex-lg-nowrap flex-wrap">
+                                <div class="select-search-area">
+                                    <label>Search:<input v-model="search" type="search" class="form-control"
+                                                         placeholder="Type here for search"></label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <table  class="user-list-table table">
-                    <thead class="table-light">
-                        <tr class="">
-                            <th class="sorting">Name</th>
-                            <th class="sorting">Slug</th>
-                            <th class="sorting">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="company in companies.data" :key="company.id">
+            </div>
 
-                            <td>{{ company.name }}</td>
-                            <td>
-                                <div class="demo-inline-spacing">
-                                    <button type="button"
-                                            @click="showItem(company)"
-                                            class="btn btn-icon btn-icon rounded-circle bg-light-warning waves-effect waves-float waves-light">
-                                        <Icon title="eye" />
-                                    </button>
-                                    <button @click="deleteItemModal(company)" type="button"
-                                        class="btn btn-icon btn-icon rounded-circle waves-effect waves-float waves-light bg-light-danger">
-                                        <Icon title="trash" />
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-6" v-for="company in companies.data" :key="company.id">
+                    <business-card :about="company" @showCompany="showCompany" @deleteCompany="deleteCompany"/>
+                </div>
+            </div>
+
+            <div class="card">
                 <Pagination :links="companies.links" :from="companies.from" :to="companies.to"
-                    :total="companies.total" />
+                            :total="companies.total" />
             </div>
 
-            <div class="card-body d-flex align-items-center justify-content-center" v-else>
+        </div>
+        <div class="card" v-else>
+            <div class="card-body d-flex align-items-center justify-content-center">
                 <img src="../../images/No-data.gif" alt="">
-<!--                <div class="form-group">
-                    <label for="categor_yoption"> Categories </label>
-                    <select name="" id="categor_yoption">
-                        <option value="">~~ select category ~~</option>
-                        <optgroup v-for="category in categories" :label="category.name">
-                            <option v-for="option in category.children_categories" :value="option.id">
-                                {{ option.name }}
-                                <span class="badge badge-light-primary" v-for="osub in option.">{{ osub.name }}</span>
-                            </option>
-                        </optgroup>
-                    </select>
-                </div>-->
             </div>
-
         </div>
         <!-- list and filter end -->
     </section>
@@ -144,10 +116,10 @@
                     </div>
 
                     <div class="col-12 col-md-6">
-                        <Text v-model="createForm.email" label="Company Email" placeholder="info@example.info.bd" :error="props.errors.email"/>
+                        <Text type="email" v-model="createForm.email" label="Company Email" placeholder="info@example.info.bd" :error="props.errors.email"/>
                     </div>
                     <div class="col-12 col-md-6">
-                        <Text v-model="createForm.phone" label="Company Phone" placeholder="+8801***-********" :error="props.errors.phone"/>
+                        <Text type="text" v-model="createForm.phone" label="Company Phone" placeholder="+8801***-********" :error="props.errors.phone"/>
                     </div>
 
                     <div class="col-12 col-md-6">
@@ -232,6 +204,7 @@ import Textarea from '@/components/form/Textarea';
 import TextEditor from '@/components/TextEditor';
 import Radio from '@/components/form/Radio.vue';
 import Video from '@/components/form/Video';
+import BusinessCard from '@/components/modules/BusinessCard';
 import Datepicker from 'vue3-datepicker'
 
 import axios from 'axios';
@@ -245,8 +218,8 @@ import Swal from 'sweetalert2'
 
 
 let props = defineProps({
-    companies: [],
-    cities:[],
+    companies: Object,
+    cities:Object,
     filters: Object,
     url: String,
     errors:Object
@@ -255,7 +228,7 @@ let props = defineProps({
 let isShow = ref({});
 
 
-let deleteItemModal = (id) => {
+let deleteCompany = (id) => {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -266,7 +239,7 @@ let deleteItemModal = (id) => {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            Inertia.delete(props.url + id, {
+            Inertia.delete(props.url +"/"+id, {
                 preserveState: true, replace: true, onSuccess: page => {
                     Swal.fire(
                         'Deleted!',
@@ -285,6 +258,8 @@ let deleteItemModal = (id) => {
         }
     })
 };
+
+
 let createForm = useForm({
     name: '',
     type:'',
@@ -315,10 +290,9 @@ let newItem = () => {
 }
 
 let showData = ref([])
-let showItem = (slug) => {
-    axios.get('categories/'+slug).then(res =>{
-        showData.value = res.data;
-        document.getElementById('showItem').$vb.modal.show()
+let showCompany = (id) => {
+    axios.get(props.url+"/"+id).then(res =>{
+        console.log(res);
     }).catch(err => {
         console.log(err)
     })
