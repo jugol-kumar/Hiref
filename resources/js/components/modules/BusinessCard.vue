@@ -33,14 +33,15 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                     </div>
 
+
                                     <div class="dropdown-menu dropdown-menu-start">
                                     <span class="dropdown-item"
-                                         @click="show(props.about.id)">
+                                         @click="showCompany(props.about.id)">
                                         <Icon title="eye"/>
                                        <span class="ms-1">Show</span>
                                     </span>
                                    <span class="dropdown-item"
-                                         @click="edit(props.about.id)">
+                                         @click="editCompany(props.about.id)">
                                         <Icon title="pencil"/>
                                         <span class="ms-1">Edit</span>
                                     </span>
@@ -73,12 +74,8 @@
                                 </span>
                             </div>
                         </div>
-
                     </div>
-
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -96,12 +93,16 @@ import Icon from '../Icon'
     })
 
 const emit = defineEmits(['showCompany', 'deleteCompany'])
-const show = (id) => {
+const showCompany = (id) => {
     emit('showCompany', id)
 }
 
 const deleteCompany= (id) => {
     emit('deleteCompany', id)
+}
+
+const editCompany= (id) => {
+    emit('editCompany', id, true)
 }
 
 

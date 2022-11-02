@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('city')->unsigned();
             $table->string('address');
-            $table->json('employee_size');
+            $table->string('employee_size');
             $table->date('starting_date');
             $table->string('website');
             $table->text('details')->nullable();

@@ -138,7 +138,6 @@ let updateBuisnessSetting = () =>{
     createForm.post(APP_URL+"/settings", {
         onSuccess: (res)=>{
             isLoding.value = true
-
             $sToast.fire({
                icon: "success",
                text: "Business Settings Update Successfully Done.:)",

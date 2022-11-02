@@ -38,8 +38,8 @@ Route::controller(HomeController::class)->name('client')->group(function (){
     Route::get('/', 'home')->name('home');
 });
 
-Route::get('/date', function (){
-   return now()->toString();
+Route::get('/timezone', function (){
+    return Timezones::timezonesToArray();
 });
 
 //Route::get('/', [HomeController::class, 'home']);
@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('child_categories', ChildCategoryController::class);
 
             Route::resource('companies', CompanyController::class);
+            Route::post('companies/{id}/update', [CompanyController::class, 'updateCompany']);
 
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');

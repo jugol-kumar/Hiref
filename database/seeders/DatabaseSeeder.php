@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
         // \App\Models\Instructor::factory(15)->create();
         // \App\Models\Category::factory(15)->create();
         // \App\Models\SubCategory::factory(25)->create();
@@ -43,6 +42,7 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
+        \App\Models\User::factory(10)->create();
 
     }
 }

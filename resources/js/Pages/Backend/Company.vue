@@ -79,7 +79,10 @@
 
             <div class="row">
                 <div class="col-md-6" v-for="company in companies.data" :key="company.id">
-                    <business-card :about="company" @showCompany="showCompany" @deleteCompany="deleteCompany"/>
+                    <business-card :about="company"
+                                   @showCompany="showSingleItem"
+                                   @deleteCompany="deleteItem"
+                                   @editCompany="showSingleItem"/>
                 </div>
             </div>
 
@@ -103,11 +106,11 @@
     <!-- Modal to add new user starts-->
     <Modal id="newItem" size="lg" v-vb-is:modal>
         <div class="modal-body pb-5 px-sm-5 pt-50">
-                <div class="text-center mb-2">
-                    <h1 class="mb-1">Add Company Information</h1>
-                    <p>Give here a new company full details.</p>
-                </div>
-                <form id="editUserForm" class="row pt-75" @submit.prevent="newItem">
+            <div class="text-center mb-2">
+                <h1 class="mb-1">Add Company Information</h1>
+                <p>Give here a new company full details.</p>
+            </div>
+            <form id="editUserForm" class="row pt-75" @submit.prevent="newItem">
                     <div class="col-12 col-md-6">
                         <Text v-model="createForm.name" label="Company Name" placeholder="Company Name" :error="props.errors.name"/>
                     </div>
@@ -167,21 +170,79 @@
                         </button>
                     </div>
                 </form>
-            </div>
+        </div>
     </Modal>
     <!-- Modal to add new user Ends-->
 
 
 <!--    show modal-->
 
-    <Modal id="showItem" title="Show Category" v-vb-is:modal>
-        <div class="modal-dialog modal-lg modal-dialog-centered d-flex flex-column">
-            <img :src="showData.photo" :alt="showData.name" class="avatar" width="60" height="60">
-            <h3 class="mt-2">{{ showData.name }}</h3>
-        </div>
-        <div class="modal-dialog-centered mx-auto mb-1">
-            <button class="btn bg-light-primary me-2">Edit</button>
-            <button class="btn bg-light-danger">Delete</button>
+    <Modal id="editItem" size="lg" title="Show Category" v-vb-is:modal>
+        <div class="modal-body pb-5 px-sm-5 pt-50">
+            <div class="text-center mb-2">
+                <h1 class="mb-1">Edit Company Information</h1>
+                <p>Give here a new company full details.</p>
+            </div>
+            <form class="row pt-75" @submit.prevent="updateItem(editItem.id)">
+                <div class="col-12 col-md-6">
+                    <Text v-model="updateForm.name" label="Company Name" placeholder="Company Name" :error="props.errors.name"/>
+                </div>
+                <div class="col-12 col-md-6">
+                    <Text v-model="updateForm.type"  label="Company Type" placeholder="It/Garments/etc" :error="props.errors.type"/>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <Text type="email" v-model="updateForm.email" label="Company Email" placeholder="info@example.info.bd" :error="props.errors.email"/>
+                </div>
+                <div class="col-12 col-md-6">
+                    <Text type="text" v-model="updateForm.phone" label="Company Phone" placeholder="+8801***-********" :error="props.errors.phone"/>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <Image v-model="updateForm.cover" label="Company Cover Pic" :error="props.errors.cover"/>
+                </div>
+                <div class="col-12 col-md-6">
+                    <Image v-model="updateForm.logo" label="Company Logo" :error="props.errors.logo"/>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label>Starting Date</label>
+                    <datepicker  class="form-control" placeholder="Choose a date"/>
+                    <span class="error text-danger" v-if="props.errors.starting_date">{{ props.errors.starting_date }}</span>
+
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <Text v-model="updateForm.employee_size" label="Employee Size" placeholder="50 to 500"  :error="props.errors.employee_size"/>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label>City</label>
+                    <v-select v-model="updateForm.city"  label="name" :options="props.cities" :reduce="city => city.id" placeholder="Select Your City"></v-select>
+                    <span class="error text-danger" v-if="props.errors.city">{{ props.errors.city }}</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <Text type="url" v-model="updateForm.website" label="Company Website" :error="props.errors.website" placeholder="https://www.example.info.bd" />
+                </div>
+                <div class="col-12 col-md-12">
+                    <Text type="text" v-model="updateForm.address" label="Company Address" :error="props.errors.address" placeholder="plot-1552, city-dhaka, bangladesh" />
+                </div>
+
+
+                <Textarea v-model="updateForm.details" label="Company Details" :error="props.errors.details" />
+
+                <div class="col-12 text-center mt-2 pt-50">
+                    <!--                        <button v-if="!isShow" class="btn btn-outline-primary me-1" type="button" disabled>-->
+                    <!--                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
+                    <!--                            <span class="ms-25 align-middle">Loading...</span>-->
+                    <!--                        </button>-->
+
+                    <button type="submit" class="btn btn-primary me-1">Submit</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">
+                        Discard
+                    </button>
+                </div>
+            </form>
         </div>
     </Modal>
 
@@ -226,16 +287,17 @@ let props = defineProps({
 });
 
 let isShow = ref({});
+let showItem = ref([])
+let editItem = ref({});
 
-
-let deleteCompany = (id) => {
+let deleteItem = (id) => {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#7367f0',
+        cancelButtonColor: '#EA5455',
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
@@ -274,6 +336,21 @@ let createForm = useForm({
     address:'',
     details:''
 });
+let updateForm = useForm({
+    name:'',
+    type:'',
+    email:'',
+    phone:'',
+    cover:'',
+    logo:'',
+    starting_date:'',
+    employee_size:'',
+    city:'',
+    website:'',
+    address:'',
+    details:''
+});
+
 
 let newItem = () => {
     isShow.value = false
@@ -285,18 +362,58 @@ let newItem = () => {
                 icon: 'success',
                 text: 'Company Save Successfully done. 🙂'
             })
+        },
+        onError: () =>{
+            $sToast.fire({
+                icon: 'error',
+                text: 'Have An Error. Try Again Later. 😔'
+            })
         }
     });
 }
 
-let showData = ref([])
-let showCompany = (id) => {
+let showSingleItem = (id, edit=false) => {
     axios.get(props.url+"/"+id).then(res =>{
-        console.log(res);
+        if (edit){
+            editItem.value           = res.data
+            updateForm.name          = res.data.name
+            updateForm.type          = res.data.type
+            updateForm.email         = res.data.email
+            updateForm.phone         = res.data.phone
+            updateForm.cover         = res.data.cover
+            updateForm.starting_date = res.data.starting_date
+            updateForm.employee_size = res.data.employee_size
+            updateForm.city          = res.data.city
+            updateForm.website       = res.data.website
+            updateForm.address       = res.data.address
+            updateForm.details       = res.data.details
+            document.getElementById('editItem').$vb.modal.show()
+        }else {
+            alert(res.data.name);
+        }
     }).catch(err => {
         console.log(err)
     })
 }
+
+let updateItem = (id) =>{
+    Inertia.post(props.url+"/"+id+"/update", updateForm,{
+        preserveState: true,
+        onSuccess: (res) =>{
+            $sToast.fire({
+                icon: 'success',
+                text: 'Company Save Successfully done. 🙂'
+            })
+        },
+        onError: (res) => {
+            $sToast.fire({
+                icon: 'error',
+                text: 'Have An Error. Try Again Later. 😔'
+            })
+        }
+    }, )
+}
+
 
 
 let search = ref(props.filters.search);

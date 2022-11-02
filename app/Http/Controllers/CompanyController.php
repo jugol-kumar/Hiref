@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class CompanyController extends Controller
@@ -81,8 +82,14 @@ class CompanyController extends Controller
         $data['creator'] = Auth::id();
 
         $company = Company::create($data);
+
         if (Request::hasFile('cover')){
-            $file = Request::file('cover')->store('companies', 'public');
+            $exists = Storage::disk('public')->has($company->photos->count() > 0 ? $company->photos[0]->filename : "null");
+            if ($exists){
+                Storage::disk('public')->delete($company->photos[0]->filename);
+            }
+
+            $file = Request::file('cover')->store('companies/cover', 'public');
             Gallery::updateOrCreate([
                 'imageable_id' => $company->id,
                 'imageable_type' => 'App\\Models\\Company',
@@ -91,13 +98,20 @@ class CompanyController extends Controller
         }
 
         if (Request::hasFile('logo')){
-            $file = Request::file('logo')->store('companies', 'public');
+            $exists = Storage::disk('public')->has($company->photos->count() > 0 ? $company->photos[1]->filename : "null");
+            if ($exists){
+                Storage::disk('public')->delete($company->photos[1]->filename);
+            }
+
+
+            $file = Request::file('logo')->store('companies/logo', 'public');
             Gallery::updateOrCreate([
                 'imageable_id' => $company->id,
                 'imageable_type' => 'App\\Models\\Company',
                 'filename' => $file
             ]);
         }
+
 
         return redirect()->route('companies.index');
 
@@ -130,12 +144,74 @@ class CompanyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function update(Request $request, Company $company)
     {
-        //
     }
+
+    public function updateCompany($id){
+
+        $company = Company::findOrfail($id);
+
+        $data = Request::validate([
+            'name'          => 'required|max:50',
+            'email'         => 'required|max:30',
+            'phone'         => 'required|max:15',
+            'type'          => 'required',
+            'cover'         => 'nullable',
+            'logo'          => 'nullable',
+            'starting_date' => 'required',
+            'employee_size' => 'required',
+            'city'          => 'required|integer',
+            'website'       => 'required|url',
+            'address'       => 'required',
+            'details'       => 'nullable|max:400',
+        ]);
+        $data['creator'] = Auth::id();
+
+        $company->update($data);
+
+        if (Request::hasFile('cover')){
+            $exists = Storage::disk('public')->has($company->photos->count() > 0 ? $company->photos[0]->filename : "null");
+            if ($exists){
+                Storage::disk('public')->delete($company->photos[0]->filename);
+            }
+
+            $file = Request::file('cover')->store('companies/cover', 'public');
+            $company->photos[0]->update([
+                'imageable_id' => $company->id,
+                'imageable_type' => 'App\\Models\\Company',
+                'filename' => $file
+            ]);
+//            Gallery::updateOrCreate([
+//                'imageable_id' => $company->id,
+//                'imageable_type' => 'App\\Models\\Company',
+//                'filename' => $file
+//            ]);
+        }
+        if (Request::hasFile('logo')){
+            $exists = Storage::disk('public')->has($company->photos->count() > 0 ? $company->photos[1]->filename : "null");
+            if ($exists){
+                Storage::disk('public')->delete($company->photos[1]->filename);
+            }
+
+            $file = Request::file('logo')->store('companies/logo', 'public');
+            $company->photos[1]->update([
+                'imageable_id' => $company->id,
+                'imageable_type' => 'App\\Models\\Company',
+                'filename' => $file
+            ]);
+//            Gallery::updateOrCreate([
+//                'imageable_id' => $company->id,
+//                'imageable_type' => 'App\\Models\\Company',
+//                'filename' => $file
+//            ]);
+        }
+
+
+    }
+
 
     /**
      * Remove the specified resource from storage.

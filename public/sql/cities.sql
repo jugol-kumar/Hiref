@@ -7,8 +7,8 @@
 -- Server version: 5.7.26-0ubuntu0.18.04.1
 -- PHP Version: 7.2.19-0ubuntu0.18.04.1
 
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -28,17 +28,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `cities`
 --
 
-CREATE TABLE `cities` (
-                            `id` int(3) NOT NULL,
-                            `district_id` int(2) NOT NULL,
-                            `name` varchar(25) NOT NULL,
-                            `bn_name` varchar(25) NOT NULL,
-                            `url` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `cities`
---
+CREATE TABLE `cities` (
+    `id` int(3) NOT NULL,
+    `district_id` int(2) NOT NULL,
+    `name` varchar(25) NOT NULL,
+    `bn_name` varchar(25) NOT NULL,
+    `url` varchar(50) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `cities` (`id`, `district_id`, `name`, `bn_name`, `url`) VALUES
 (1, 1, 'Debidwar', 'দেবিদ্বার', 'debidwar.comilla.gov.bd'),
@@ -532,3 +528,28 @@ INSERT INTO `cities` (`id`, `district_id`, `name`, `bn_name`, `url`) VALUES
 (489, 64, 'Mohongonj', 'মোহনগঞ্জ', 'mohongonj.netrokona.gov.bd'),
 (490, 64, 'Purbadhala', 'পূর্বধলা', 'purbadhala.netrokona.gov.bd'),
 (491, 64, 'Netrokona Sadar', 'নেত্রকোণা সদর', 'netrokonasadar.netrokona.gov.bd');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `countries`
+--
+ALTER TABLE `cities`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `countries`
+--
+ALTER TABLE `cities`
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=895;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
