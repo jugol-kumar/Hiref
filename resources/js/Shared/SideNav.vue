@@ -149,12 +149,13 @@
                     </ul>
                 </li>
 
-                <li class=" nav-item">
-                    <Link preserve-scroll class="d-flex align-items-center" href="/panel/subscriptions">
-                        <Icon title="chrome" width="24" height="24" />
-                        <span class="menu-title text-truncate">Subscriptions</span>
+                <li class="nav-item">
+                    <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/jobs`">
+                        <vue-feather type="layers"/>
+                        <span class="menu-title text-truncate">Jobs</span>
                     </Link>
                 </li>
+
                 <li class=" nav-item">
                     <Link preserve-scroll class="d-flex align-items-center" href="/panel/transactions">
                         <Icon title="dollar-sign" width="24" height="24" />

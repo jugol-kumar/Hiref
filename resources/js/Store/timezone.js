@@ -2751,6 +2751,24 @@ var timeZonsWithCountry = [
     }
 ];
 
+var types= [
+    {'type':'Full Time'},
+    {'type':'Part Time'},
+    {'type':'Freelance'},
+    {'type':'Internship'},
+    {'type':'Temporary'},
+    {'type':'Contract'},
+    {'type':'Seasonal'},
+]
+var labels = [
+    {'label' : 'Beginner'},
+    {'label' : 'Junior'},
+    {'label' : 'Mid-level'},
+    {'label' : 'Senior'},
+    {'label' : 'Lead'},
+    {'label' : 'Manager'},
+]
+
 var timesones =  [
     {'tz':'Africa/Abidjan'},
     {'tz':'Africa/Accra'},
@@ -3493,5 +3511,5 @@ var times = [
 ]
 
 export default {
-    timesones
+    timesones, types, labels
 }

@@ -21,8 +21,8 @@ class BusinessSettingController extends Controller
             'bSettings' =>[
                 'name'        => get_setting('name'),
                 'details'     => get_setting('app_details'),
-                'header_logo' => config('app.url').'/storage/'. get_setting('header_logo'),
-                'footer_logo' => config('app.url').'/storage/'. get_setting('footer_logo'),
+                'header_logo' => global_asset(get_setting('header_logo')),
+                'footer_logo' => global_asset(get_setting('footer_logo')),
                 'timezone'    => json_decode(get_setting('timezone')),
                 'country'     => json_decode(get_setting('country'))
             ]

@@ -13076,17 +13076,17 @@ select:-webkit-autofill {
   box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
   transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
 }
-/*.card .card {*/
-/*  box-shadow: none !important;*/
-/*}*/
+.card .card {
+  box-shadow: none !important;
+}
 .card .card-title {
   font-weight: 500;
   font-size: 1.285rem;
   margin-bottom: 1.53rem;
 }
-/*.card .card-bordered {*/
-/*  border: 0 solid var(--bs-border-color-translucent);*/
-/*}*/
+.card .card-bordered {
+  border: 0 solid var(--bs-border-color-translucent);
+}
 .card .card-img {
   -o-object-fit: cover;
      object-fit: cover;

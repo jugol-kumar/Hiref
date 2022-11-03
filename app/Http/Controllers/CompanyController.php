@@ -33,7 +33,7 @@ class CompanyController extends Controller
                     'email'         => $company->email,
                     'phone'         => $company->phone,
                     'type'          => $company->type,
-                    'logo'        => global_asset($company->photos->count() > 0 ? $company->photos[0]->filename : null),
+                    'logo'          => global_asset($company->photos->count() > 0 ? $company->photos[0]->filename : null),
                     'starting_date' => $company->starting_date,
                     'employee_size' => $company->employee_size,
                     'city'          => $company->companyCity,
@@ -41,7 +41,7 @@ class CompanyController extends Controller
                     'address'       => $company->address,
                     'details'       => $company->details,
                 ]),
-            'cities' => City::select('id','name', 'bn_name')->get(),
+            'cities' => City::where('country_id', 19)->select('id','name')->get(),
             'filters' => Request::only(['search','perPage']),
             'url' => URL::route('companies.index')
         ]);

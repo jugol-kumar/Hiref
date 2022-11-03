@@ -94,7 +94,7 @@
         </div>
         <div class="card" v-else>
             <div class="card-body d-flex align-items-center justify-content-center">
-                <img src="../../images/No-data.gif" alt="">
+                <img src="@/images/No-data.gif" alt="">
             </div>
         </div>
         <!-- list and filter end -->

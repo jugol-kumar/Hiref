@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
@@ -80,6 +81,9 @@ Route::middleware('auth')->group(function () {
 
             Route::resource('companies', CompanyController::class);
             Route::post('companies/{id}/update', [CompanyController::class, 'updateCompany']);
+
+            Route::resource('jobs', JobController::class);
+            Route::post('child-categories-by-category-id', [JobController::class, 'allSubcategory'])->name('allSubCategory');
 
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');
