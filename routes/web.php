@@ -39,9 +39,6 @@ Route::controller(HomeController::class)->name('client')->group(function (){
     Route::get('/', 'home')->name('home');
 });
 
-Route::get('/timezone', function (){
-    return Timezones::timezonesToArray();
-});
 
 //Route::get('/', [HomeController::class, 'home']);
 Route::get('/contact', [HomeController::class, 'contact']);
@@ -68,7 +65,6 @@ Route::any('logout', [LoginController::class, 'destroy'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::prefix('student')->middleware('is_student')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'student'])->name('dashboard');
-
     });
 
     Route::prefix('panel')->group(function () {
@@ -100,4 +96,9 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+
+Route::get('/test', function (){
+    inertia('Backend/New');
 });

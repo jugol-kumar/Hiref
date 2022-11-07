@@ -12,8 +12,6 @@
         <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
                 <Link :href="`${this.$page.props.ADMIN_URL}/jobs/create`" class="dt-button add-new btn btn-primary" >New Job</Link>
-<!--                <button class="dt-button add-new btn btn-primary" tabindex="0" type="button" data-bs-toggle="modal"-->
-<!--                    data-bs-target="#newItem"><span>New Job</span></button>-->
             </div>
         </div>
     </div>
@@ -51,7 +49,7 @@
             </div>
         </div>-->
 
-        <div v-if="companies.data.length > 0 || search != null" >
+        <div v-if="jobs.data.length > 0 || search != null" >
             <div class="card"  >
                 <div  class="card-datatable table-responsive pt-0" >
                     <div class="d-flex justify-content-between align-items-center header-actions mx-0 row">
@@ -79,17 +77,78 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6" v-for="company in companies.data" :key="company.id">
-                    <business-card :about="company"
-                                   @showCompany="showSingleItem"
-                                   @deleteCompany="deleteItem"
-                                   @editCompany="showSingleItem"/>
+                <div class="col-md-12" v-for="job in jobs.data" :key="job.id">
+                    <div class="card card-bordered mb-4 card-hover cursor-pointer">
+                        <!-- card body -->
+                        <div class="card-body">
+                            <div>
+                                <div class="d-md-flex">
+                                    <div class="mb-3 mb-md-0">
+                                        <!-- Img -->
+                                        <div class="avatar avatar-xl">
+                                            <img src="@/images/logo.png" alt="Laravel UI - Bootstrap 5 Template" class="icon-shape border rounded-circle">
+                                        </div>
+                                    </div>
+                                    <!-- text -->
+                                    <div class="ms-md-3 w-100 mt-3 mt-xl-1">
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <div>
+                                                <!-- heading -->
+                                                <h3 class="mb-1 fs-4"><a href="javascript:void(0)" class="text-inherit">Software Engineer
+                                                    (Web3/Crypto)</a>
+                                                    <span class="badge bg-light-danger text-danger ms-2">Featured Job</span>
+                                                </h3>
+                                                <div>
+                                                    <span>at HelpDesk </span>
+                                                    <!-- star -->
+                                                    <span class="text-dark ms-2 fw-medium">4.5
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill text-warning align-baseline" viewBox="0 0 16 16">
+                                                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="ms-0">(131 Reviews)</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <!-- bookmark -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark text-muted bookmark" viewBox="0 0 16 16">
+                                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
+                                                </svg>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="d-md-flex justify-content-between ">
+                                            <div class="mb-2 mb-md-0">
+                                                <!-- year -->
+                                                <span class="me-2"> <i class="fe fe-briefcase text-muted"></i><span class="ms-1 ">1 - 5
+                                            years</span></span>
+                                                <!-- salary -->
+
+                                                <span class="me-2">
+                                          <i class="fe fe-dollar-sign text-muted"></i><span class="ms-1 ">12k - 18k</span></span>
+                                                                <!-- location -->
+                                                                <span class="me-2">
+                                          <i class="fe fe-map-pin text-muted"></i><span class="ms-1 ">Ahmedabad, Gujarat</span></span>
+                                            </div>
+                                            <!-- time -->
+                                            <div>
+                                                <i class="fe fe-clock text-muted"></i> <span>21 hours ago</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="card">
-                <Pagination :links="companies.links" :from="companies.from" :to="companies.to"
-                            :total="companies.total" />
+                <Pagination :links="jobs.links" :from="jobs.from" :to="jobs.to"
+                            :total="jobs.total" />
             </div>
 
         </div>
@@ -100,153 +159,6 @@
         </div>
         <!-- list and filter end -->
     </section>
-
-
-
-
-    <!-- Modal to add new user starts-->
-    <Modal id="newItem" size="lg" v-vb-is:modal>
-        <div class="modal-body pb-5 px-sm-5 pt-50">
-            <div class="text-center mb-2">
-                <h1 class="mb-1">Add Company Information</h1>
-                <p>Give here a new company full details.</p>
-            </div>
-            <form id="editUserForm" class="row pt-75" @submit.prevent="newItem">
-                    <div class="col-12 col-md-6">
-                        <Text v-model="createForm.name" label="Company Name" placeholder="Company Name" :error="props.errors.name"/>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <Text v-model="createForm.type"  label="Company Type" placeholder="It/Garments/etc" :error="props.errors.type"/>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <Text type="email" v-model="createForm.email" label="Company Email" placeholder="info@example.info.bd" :error="props.errors.email"/>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <Text type="text" v-model="createForm.phone" label="Company Phone" placeholder="+8801***-********" :error="props.errors.phone"/>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <Image v-model="createForm.cover" label="Company Cover Pic" :error="props.errors.cover"/>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <Image v-model="createForm.logo" label="Company Logo" :error="props.errors.logo"/>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <label>Starting Date</label>
-                        <datepicker v-model="createForm.starting_date"  class="form-control" placeholder="Choose a date"/>
-                        <span class="error text-danger" v-if="props.errors.starting_date">{{ props.errors.starting_date }}</span>
-
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <Text v-model="createForm.employee_size" label="Employee Size" placeholder="50 to 500"  :error="props.errors.employee_size"/>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <label>City</label>
-                        <v-select v-model="createForm.city"  label="name" :options="props.cities" :reduce="city => city.id" placeholder="Select Your City"></v-select>
-                        <span class="error text-danger" v-if="props.errors.city">{{ props.errors.city }}</span>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <Text type="url" v-model="createForm.website" label="Company Website" :error="props.errors.website" placeholder="https://www.example.info.bd" />
-                    </div>
-                    <div class="col-12 col-md-12">
-                        <Text type="text" v-model="createForm.address" label="Company Address" :error="props.errors.address" placeholder="plot-1552, city-dhaka, bangladesh" />
-                    </div>
-
-
-                    <Textarea v-model="createForm.details" label="Company Details" :error="props.errors.details" />
-
-                    <div class="col-12 text-center mt-2 pt-50">
-<!--                        <button v-if="!isShow" class="btn btn-outline-primary me-1" type="button" disabled>-->
-<!--                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
-<!--                            <span class="ms-25 align-middle">Loading...</span>-->
-<!--                        </button>-->
-
-                        <button type="submit" class="btn btn-primary me-1">Submit</button>
-                        <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">
-                            Discard
-                        </button>
-                    </div>
-                </form>
-        </div>
-    </Modal>
-    <!-- Modal to add new user Ends-->
-
-
-<!--    show modal-->
-
-    <Modal id="editItem" size="lg" title="Show Category" v-vb-is:modal>
-        <div class="modal-body pb-5 px-sm-5 pt-50">
-            <div class="text-center mb-2">
-                <h1 class="mb-1">Edit Company Information</h1>
-                <p>Give here a new company full details.</p>
-            </div>
-            <form class="row pt-75" @submit.prevent="updateItem(editItem.id)">
-                <div class="col-12 col-md-6">
-                    <Text v-model="updateForm.name" label="Company Name" placeholder="Company Name" :error="props.errors.name"/>
-                </div>
-                <div class="col-12 col-md-6">
-                    <Text v-model="updateForm.type"  label="Company Type" placeholder="It/Garments/etc" :error="props.errors.type"/>
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <Text type="email" v-model="updateForm.email" label="Company Email" placeholder="info@example.info.bd" :error="props.errors.email"/>
-                </div>
-                <div class="col-12 col-md-6">
-                    <Text type="text" v-model="updateForm.phone" label="Company Phone" placeholder="+8801***-********" :error="props.errors.phone"/>
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <Image v-model="updateForm.cover" label="Company Cover Pic" :error="props.errors.cover"/>
-                </div>
-                <div class="col-12 col-md-6">
-                    <Image v-model="updateForm.logo" label="Company Logo" :error="props.errors.logo"/>
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <label>Starting Date</label>
-                    <datepicker  class="form-control" placeholder="Choose a date"/>
-                    <span class="error text-danger" v-if="props.errors.starting_date">{{ props.errors.starting_date }}</span>
-
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <Text v-model="updateForm.employee_size" label="Employee Size" placeholder="50 to 500"  :error="props.errors.employee_size"/>
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <label>City</label>
-                    <v-select v-model="updateForm.city"  label="name" :options="props.cities" :reduce="city => city.id" placeholder="Select Your City"></v-select>
-                    <span class="error text-danger" v-if="props.errors.city">{{ props.errors.city }}</span>
-                </div>
-                <div class="col-12 col-md-6">
-                    <Text type="url" v-model="updateForm.website" label="Company Website" :error="props.errors.website" placeholder="https://www.example.info.bd" />
-                </div>
-                <div class="col-12 col-md-12">
-                    <Text type="text" v-model="updateForm.address" label="Company Address" :error="props.errors.address" placeholder="plot-1552, city-dhaka, bangladesh" />
-                </div>
-
-
-                <Textarea v-model="updateForm.details" label="Company Details" :error="props.errors.details" />
-
-                <div class="col-12 text-center mt-2 pt-50">
-                    <!--                        <button v-if="!isShow" class="btn btn-outline-primary me-1" type="button" disabled>-->
-                    <!--                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
-                    <!--                            <span class="ms-25 align-middle">Loading...</span>-->
-                    <!--                        </button>-->
-
-                    <button type="submit" class="btn btn-primary me-1">Submit</button>
-                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">
-                        Discard
-                    </button>
-                </div>
-            </form>
-        </div>
-    </Modal>
-
 
 
 
@@ -276,22 +188,12 @@ import { useForm } from '@inertiajs/inertia-vue3'
 import debounce from "lodash/debounce";
 import Swal from 'sweetalert2'
 
-
-
-
 let props = defineProps({
-    companies: Object,
-    cities:Object,
+    jobs: Object,
     filters: Object,
     url: String,
-    errors:Object,
-    pageLogo:"",
-    pageCover:""
 });
 
-let isShow = ref({});
-let showItem = ref([])
-let editItem = ref({});
 
 
 let deleteItem = (id) => {
@@ -326,105 +228,6 @@ let deleteItem = (id) => {
 };
 
 
-let createForm = useForm({
-    name: '',
-    type:'',
-    email:'',
-    phone:'',
-    cover:'',
-    logo:'',
-    starting_date:'',
-    employee_size:'',
-    city:'',
-    website:'',
-    address:'',
-    details:''
-});
-let updateForm = useForm({
-    name:'',
-    type:'',
-    email:'',
-    phone:'',
-    cover:'',
-    logo:'',
-    starting_date:'',
-    employee_size:'',
-    city:'',
-    website:'',
-    address:'',
-    details:'',
-
-    showLogo:'',
-    showCover:''
-});
-
-
-let newItem = () => {
-    isShow.value = false
-    createForm.post(props.url, {
-        onSuccess: () => {
-            document.getElementById('newItem').$vb.modal.hide()
-            createForm.reset()
-            $sToast.fire({
-                icon: 'success',
-                text: 'Company Save Successfully done. 🙂'
-            })
-        },
-        onError: () =>{
-            $sToast.fire({
-                icon: 'error',
-                text: 'Have An Error. Try Again Later. 😔'
-            })
-        }
-    });
-}
-
-let showSingleItem = (id, edit=false) => {
-    axios.get(props.url+"/"+id).then(res =>{
-        if (edit){
-            console.log(res);
-            let data = res.data.data;
-            editItem.value           = data
-            updateForm.logo          = res.data.logo
-            updateForm.cover         = res.data.cover
-            updateForm.name          = data.name
-            updateForm.type          = data.type
-            updateForm.email         = data.email
-            updateForm.phone         = data.phone
-            updateForm.starting_date = data.starting_date
-            updateForm.employee_size = data.employee_size
-            updateForm.city          = data.city
-            updateForm.website       = data.website
-            updateForm.address       = data.address
-            updateForm.details       = data.details
-            document.getElementById('editItem').$vb.modal.show()
-        }else {
-            alert(res.data.name);
-        }
-    }).catch(err => {
-        console.log(err)
-    })
-}
-
-let updateItem = (id) =>{
-    Inertia.post(props.url+"/"+id+"/update", updateForm,{
-        preserveState: true,
-        onSuccess: (res) =>{
-            updateForm.reset();
-            document.getElementById('editItem').$vb.modal.hide()
-            $sToast.fire({
-                icon: 'success',
-                text: 'Company Save Successfully done. 🙂'
-            })
-        },
-        onError: (res) => {
-            $sToast.fire({
-                icon: 'error',
-                text: 'Have An Error. Try Again Later. 😔'
-            })
-        }
-    }, )
-}
 
 
 

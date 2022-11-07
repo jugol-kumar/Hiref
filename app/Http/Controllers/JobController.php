@@ -8,8 +8,11 @@ use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\Job;
+use App\Models\Skill;
 use App\Models\SubCategory;
+use App\Models\Tag;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
@@ -24,15 +27,14 @@ class JobController extends Controller
     public function index()
     {
         return inertia('Backend/Jobs/Jobs', [
-            'companies' => Job::query()
+            'jobs' => Job::query()
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
                 })
                 ->paginate(Request::input('perPage') ?? 10)
                 ->withQueryString()
                 ->through(fn($job) => [
-                    'id' => $job->id,
-                    'title' => $job->title
+                    'job' => $job
                 ]),
             'cities' => City::where('country_id', 19)->select('id','name')->get(),
             'filters' => Request::only(['search','perPage']),
@@ -48,7 +50,6 @@ class JobController extends Controller
     public function create()
     {
         return inertia('Backend/Jobs/CreateNew', [
-
             'categories' => Category::select('id', 'name')->get(),
             'sub_categories' => SubCategory::query()
                 ->when(Request::input('category_id'), function ($query, $category_id) {
@@ -65,9 +66,9 @@ class JobController extends Controller
 
             'subbycat_url' => URL::route('subbycat'),
             'childbysubcat_url' => URL::route('childbysubcat'),
-            // 'can' => [
-            //     'createUser' => Auth::user()->can('create', User::class)
-            // ]
+            'create_url' => URL::route('jobs.store'),
+
+
         ]);
     }
 
@@ -83,11 +84,50 @@ class JobController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $data = Request::validate([
+            "title" => 'required',
+            "types" => 'required',
+            "label" =>  'required',
+            "category_id" => 'nullable|integer',
+            "sub_category_id" =>  'nullable|integer',
+            "child_category_id" => 'nullable|integer',
+            "tags" => 'nullable|array',
+            "skills" => 'nullable|array',
+            "currency" => 'required|integer',
+            "min_salary" => 'required|integer',
+            "max_salary" => 'required|integer',
+            "company" =>'required|integer',
+            "creator" => 'nullable|integer',
+            "declined_date" => 'required',
+            "web_address" => 'required|url',
+            "location" => 'nullable|string',
+            "is_remote" => 'nullable',
+            "fultime_remote" => 'nullable',
+            "job_details" => 'required|min:200'
+        ]);
+        $data["tags"] = json_encode(Request::input('tags'));
+        $data["skills"] = json_encode(Request::input('skills'));
+        $data['is_remote'] = Request::input('is_remote') == 'on';
+        $data['fultime_remote'] = Request::input('fultime_remote') == 'on';
+        $data['user_id'] = Auth::id();
+        foreach (Request::input('tags') as $value){
+            Tag::updateOrCreate([
+                'name' => $value
+            ]);
+        }
+        foreach (Request::input('skills') as $value){
+            Skill::updateOrCreate([
+                'name' => $value
+            ]);
+        }
+        Job::create($data);
+
+        return back();
+
     }
 
     /**
