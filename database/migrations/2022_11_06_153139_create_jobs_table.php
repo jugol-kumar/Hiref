@@ -27,6 +27,9 @@ return new class extends Migration
             $table->integer('currency')->unsigned();
             $table->integer('min_salary');
             $table->integer('max_salary');
+            $table->integer('min_experience')->default(0);
+            $table->integer('max_experience');
+            $table->enum('experience_type', ['year', 'month', 'days'])->default('year');
             $table->integer('company')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('creator')->unsigned();
@@ -35,6 +38,8 @@ return new class extends Migration
             $table->string('location');
             $table->boolean('is_remote');
             $table->boolean('fultime_remote');
+            $table->boolean('is_published')->default(0);
+            $table->boolean('is_featured')->default(0);
             $table->longText('job_details');
             $table->timestamps();
         });

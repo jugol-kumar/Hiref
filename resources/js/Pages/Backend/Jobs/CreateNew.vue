@@ -133,12 +133,33 @@
                                 </v-select>
                                 <span class="error text-danger" v-if="props.errors.currency">{{ props.errors.currency }}</span>
                             </div>
-                            <div class="col">
-                                <Text type="number" v-model="createForm.min_salary" label="Min Salary" placeholder="Minimum salary"/>
+                            <div class="row pe-0">
+                                <div class="col pe-0">
+                                    <Text type="number" v-model="createForm.min_salary" label="Min Salary" placeholder="Minimum salary"/>
+                                </div>
+                                <div class="col pe-0">
+                                    <Text type="number" v-model="createForm.max_salary" label="Max Salary" placeholder="Maximum salary"/>
+                                </div>
                             </div>
-                            <div class="col">
-                                <Text type="number" v-model="createForm.max_salary" label="Max Salary" placeholder="Maximum salary"/>
+
+                            <div class="col-12">
+                                <label>Access Time</label>
+                                <fieldset>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" v-model="createForm.min_experience" placeholder="Minimum Work Exprience" aria-label="Amount">
+                                        <input type="number" class="form-control" v-model="createForm.max_experience" placeholder="Maximum Work Exprience" aria-label="Amount">
+                                        <select class="form-control" v-model="createForm.experience_type" placeholder="Chose Exprience Type">
+                                            <option selected value="" disabled>~~ Chose Experience Type ~~</option>
+                                            <option value="year">Year</option>
+                                            <option value="month">Month</option>
+                                            <option value="days">Days</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
                             </div>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -214,6 +235,12 @@
                             <div class="col-12 col-md-3">
                                 <Switch  v-model="createForm.fultime_remote"  label="Is Full-time Remote"/>
                             </div>
+                            <div class="col-12 col-md-3">
+                                <Switch v-model="createForm.is_published" label="Publication Status"/>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <Switch  v-model="createForm.is_featured"  label="Featured Status"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,7 +288,7 @@ import Video from '@/components/form/Video';
 import BusinessCard from '@/components/modules/BusinessCard';
 import Datepicker from 'vue3-datepicker'
 import types from '@/Store/timezone.js'
-import Switch from "../../../components/form/Switch";
+import Switch from "../../../components/form/Switch2";
 import InputTag from "../../../components/form/InputTag";
 
 let allTypes = types.types;
@@ -293,6 +320,9 @@ let createForm = useForm({
     currency:19,
     min_salary:'',
     max_salary:'',
+    min_experience:'',
+    max_experience:'',
+    experience_type: '',
     company:'',
     creator:'',
     declined_date:'',
@@ -300,6 +330,8 @@ let createForm = useForm({
     location:'',
     is_remote:false,
     fultime_remote:false,
+    is_published:false,
+    is_featured:false,
     job_details:'',
 });
 

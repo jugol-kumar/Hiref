@@ -28,17 +28,19 @@ class JobController extends Controller
     {
         return inertia('Backend/Jobs/Jobs', [
             'jobs' => Job::query()
+                ->with(['company','company.photos', 'user', 'creator', 'country', 'category', 'sub_category', 'child_category' ])
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
                 })
                 ->paginate(Request::input('perPage') ?? 10)
                 ->withQueryString()
                 ->through(fn($job) => [
-                    'job' => $job
+                    $job['formated_date'] = $job->created_at->diffForHumans(),
+                    'job' => $job,
                 ]),
             'cities' => City::where('country_id', 19)->select('id','name')->get(),
             'filters' => Request::only(['search','perPage']),
-            'url' => URL::route('companies.index')
+            'url' => URL::route('jobs.index')
         ]);
     }
 
@@ -75,9 +77,7 @@ class JobController extends Controller
 
     public function allSubcategory()
     {
-
         return SubCategory::where('category_id', Request::input('category'))->get();
-
     }
 
     /**
@@ -100,19 +100,22 @@ class JobController extends Controller
             "currency" => 'required|integer',
             "min_salary" => 'required|integer',
             "max_salary" => 'required|integer',
+            "min_experience" => 'required|integer',
+            'max_experience' => 'required|integer',
+            'experience_type'=> 'required',
             "company" =>'required|integer',
             "creator" => 'nullable|integer',
             "declined_date" => 'required',
             "web_address" => 'required|url',
             "location" => 'nullable|string',
-            "is_remote" => 'nullable',
-            "fultime_remote" => 'nullable',
+            "is_remote" => 'boolean',
+            "fultime_remote" => 'boolean',
+            "is_published" => 'boolean',
+            "is_featured" => 'boolean',
             "job_details" => 'required|min:200'
         ]);
         $data["tags"] = json_encode(Request::input('tags'));
         $data["skills"] = json_encode(Request::input('skills'));
-        $data['is_remote'] = Request::input('is_remote') == 'on';
-        $data['fultime_remote'] = Request::input('fultime_remote') == 'on';
         $data['user_id'] = Auth::id();
         foreach (Request::input('tags') as $value){
             Tag::updateOrCreate([
@@ -125,7 +128,6 @@ class JobController extends Controller
             ]);
         }
         Job::create($data);
-
         return back();
 
     }
@@ -168,10 +170,11 @@ class JobController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Job  $job
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Job $job)
     {
-        //
+        $job->delete();
+        return back();
     }
 }

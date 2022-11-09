@@ -78,69 +78,14 @@
 
             <div class="row">
                 <div class="col-md-12" v-for="job in jobs.data" :key="job.id">
-                    <div class="card card-bordered mb-4 card-hover cursor-pointer">
+                    <div class="card card-bordered mb-4 card-hover">
                         <!-- card body -->
                         <div class="card-body">
-                            <div>
-                                <div class="d-md-flex">
-                                    <div class="mb-3 mb-md-0">
-                                        <!-- Img -->
-                                        <div class="avatar avatar-xl">
-                                            <img src="@/images/logo.png" alt="Laravel UI - Bootstrap 5 Template" class="icon-shape border rounded-circle">
-                                        </div>
-                                    </div>
-                                    <!-- text -->
-                                    <div class="ms-md-3 w-100 mt-3 mt-xl-1">
-                                        <div class="d-flex justify-content-between mb-5">
-                                            <div>
-                                                <!-- heading -->
-                                                <h3 class="mb-1 fs-4"><a href="javascript:void(0)" class="text-inherit">Software Engineer
-                                                    (Web3/Crypto)</a>
-                                                    <span class="badge bg-light-danger text-danger ms-2">Featured Job</span>
-                                                </h3>
-                                                <div>
-                                                    <span>at HelpDesk </span>
-                                                    <!-- star -->
-                                                    <span class="text-dark ms-2 fw-medium">4.5
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill text-warning align-baseline" viewBox="0 0 16 16">
-                                                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                                        </svg>
-                                                    </span>
-                                                    <span class="ms-0">(131 Reviews)</span>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <!-- bookmark -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark text-muted bookmark" viewBox="0 0 16 16">
-                                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
-                                                </svg>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="d-md-flex justify-content-between ">
-                                            <div class="mb-2 mb-md-0">
-                                                <!-- year -->
-                                                <span class="me-2"> <i class="fe fe-briefcase text-muted"></i><span class="ms-1 ">1 - 5
-                                            years</span></span>
-                                                <!-- salary -->
-
-                                                <span class="me-2">
-                                          <i class="fe fe-dollar-sign text-muted"></i><span class="ms-1 ">12k - 18k</span></span>
-                                                                <!-- location -->
-                                                                <span class="me-2">
-                                          <i class="fe fe-map-pin text-muted"></i><span class="ms-1 ">Ahmedabad, Gujarat</span></span>
-                                            </div>
-                                            <!-- time -->
-                                            <div>
-                                                <i class="fe fe-clock text-muted"></i> <span>21 hours ago</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
+                            <JobCard
+                                :job="job"
+                                @showJob="showSingleItem"
+                                @deleteJob="deleteItem"
+                                @editJob="editItem"/>
                         </div>
                     </div>
                 </div>
@@ -180,13 +125,14 @@ import Radio from '@/components/form/Radio.vue';
 import Video from '@/components/form/Video';
 import BusinessCard from '@/components/modules/BusinessCard';
 import Datepicker from 'vue3-datepicker'
-
+import Popper from "vue3-popper";
 import axios from 'axios';
 import { ref, watch, computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/inertia-vue3'
 import debounce from "lodash/debounce";
 import Swal from 'sweetalert2'
+import JobCard from "../../../components/modules/JobCard";
 
 let props = defineProps({
     jobs: Object,
@@ -228,6 +174,53 @@ let deleteItem = (id) => {
 };
 
 
+let showSingleItem = (id, edit=false) => {
+    axios.get(props.url+"/"+id).then(res =>{
+        if (edit){
+            console.log(res);
+            let data = res.data.data;
+            editItem.value           = data
+            updateForm.logo          = res.data.logo
+            updateForm.cover         = res.data.cover
+            updateForm.name          = data.name
+            updateForm.type          = data.type
+            updateForm.email         = data.email
+            updateForm.phone         = data.phone
+            updateForm.starting_date = data.starting_date
+            updateForm.employee_size = data.employee_size
+            updateForm.city          = data.city
+            updateForm.website       = data.website
+            updateForm.address       = data.address
+            updateForm.details       = data.details
+            document.getElementById('editItem').$vb.modal.show()
+        }else {
+            alert(res.data.name);
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+let updateItem = (id) =>{
+    Inertia.post(props.url+"/"+id+"/update", updateForm,{
+        preserveState: true,
+        onSuccess: (res) =>{
+            updateForm.reset();
+            document.getElementById('editItem').$vb.modal.hide()
+            $sToast.fire({
+                icon: 'success',
+                text: 'Company Save Successfully done. 🙂'
+            })
+        },
+        onError: (res) => {
+            $sToast.fire({
+                icon: 'error',
+                text: 'Have An Error. Try Again Later. 😔'
+            })
+        }
+    }, )
+}
+
 
 
 
@@ -239,3 +232,16 @@ watch([search, perPage], debounce(function ([val, val2]) {
 }, 300));
 
 </script>
+
+
+<style>
+:root {
+    --popper-theme-background-color: #333333;
+    --popper-theme-background-color-hover: #333333;
+    --popper-theme-text-color: #ffffff;
+    --popper-theme-border-width: 0px;
+    --popper-theme-border-style: solid;
+    --popper-theme-border-radius: 6px;
+    --popper-theme-padding: 5px;
+    --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+}</style>

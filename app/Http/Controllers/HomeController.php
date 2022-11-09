@@ -3,15 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function home()
     {
-//        return inertia('Frontend/Master');
-        return view('frontend.home');
+        $jobs = Job::with(['companyDetails', 'user'])
+            ->where('is_published', 1)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+        return view('frontend.home', compact('jobs'));
     }
+
+    public function singleJob($slug){
+        $job = Job::with(['companyDetails', 'user'])
+            ->where('slug', $slug)->first();
+        return view('frontend.single_job', compact('job'));
+    }
+
 
     public function about()
     {
