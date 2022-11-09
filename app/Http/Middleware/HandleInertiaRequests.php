@@ -49,6 +49,7 @@ class HandleInertiaRequests extends Middleware
             ] : null,
 
             'ADMIN_URL' => 'http://127.0.0.1:8000/panel/admin',
+            'MAIN_URL' => config('app.url'),
             'appName' => config('app.name'),
             'logo' => asset('images/HireF-logo.svg')
         ]);

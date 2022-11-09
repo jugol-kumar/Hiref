@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
             $table->integer('imageable_id')->unsigned();
-            $table->string('imagable_type');
+            $table->string('imageable_type');
             $table->string('filename');
             $table->timestamps();
         });

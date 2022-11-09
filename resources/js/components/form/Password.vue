@@ -8,7 +8,7 @@
                 <Icon class="cursor-pointer" :title="passwordToggleIcon" @click="togglePasswordVisibility" />
             </span>
         </div>
-        <span v-if="error" class="error">{{ error }}</span>
+        <span v-if="error" class="error text-danger">{{ error }}</span>
     </div>
 </template>
 

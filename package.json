@@ -38,10 +38,12 @@
         "dtoaster": "^0.1.4",
         "sweetalert2": "^11.4.17",
         "vue": "^3.2.33",
+        "vue-autocomplete-input-tag": "^2.0.1",
         "vue-select": "^4.0.0-beta.3",
         "vue-toast-notification": "3.0",
         "vue3-datepicker": "^0.3.4",
         "vue3-plugin-bootstrap5": "^0.2.5",
+        "vue3-popper": "^1.5.0",
         "vuex": "^4.0.2"
     }
 }

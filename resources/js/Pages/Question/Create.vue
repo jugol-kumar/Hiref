@@ -18,7 +18,10 @@
                         <div class="col-12 col-lg-4">
                             <div class="mb-1">
                                 <label class="form-label">Select a Category</label>
-                                <v-select v-model="createForm.category_id" @update:modelValue="categorySelected" label="name" :options="categories" :reduce="category => category.id"></v-select>
+                                <v-select v-model="createForm.category_id" @update:modelValue="categorySelected" label="name"
+                                          :options="categories"
+                                          :reduce="category => category.id">
+                                </v-select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">

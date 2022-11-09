@@ -1,8 +1,8 @@
 <template>
-    <label class="form-check-label mb-50" for="customSwitch111">{{ label }}: </label>
+    <label class="form-check-label mb-50" :for="`customSwitch111${label}`">{{ label }} </label>
     <div class="form-check form-switch form-check-success">
-        <input type="checkbox" class="form-check-input" id="customSwitch111" :checked="modelValue" @input="updateValue" role="switch" true-value="1" false-value="false" />
-        <label class="form-check-label" for="customSwitch111">
+        <input type="checkbox" class="form-check-input" :id="`customSwitch111${label}`" :checked="modelValue" @input="updateValue" role="switch" true-value="1" false-value="false" />
+        <label class="form-check-label" :for="`customSwitch111${label}`">
             <span class="switch-icon-left">
                 <Icon title="check" />
             </span>

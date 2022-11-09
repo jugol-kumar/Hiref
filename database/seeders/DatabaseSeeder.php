@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
         // \App\Models\Instructor::factory(15)->create();
         // \App\Models\Category::factory(15)->create();
         // \App\Models\SubCategory::factory(25)->create();
@@ -26,9 +25,13 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Category::factory()->has(\App\Models\SubCategory::factory()->count(10))->create();
         // \App\Models\Category::factory()->hasSub_categories(5)->create();
 
-        $path = public_path('sql/countries.sql');
-        $sql = file_get_contents($path);
-        DB::unprepared($sql);
+//        $world = public_path('sql/countries.sql');
+//        $sql = file_get_contents($world);
+//        DB::unprepared($sql);
+////
+//        $cities = public_path('sql/cities.sql');
+//        $sql = file_get_contents($cities);
+//        DB::unprepared($sql);
 
         \App\Models\User::create([
             'name' => 'Admin User',
@@ -39,6 +42,7 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
+        \App\Models\User::factory(10)->create();
 
     }
 }

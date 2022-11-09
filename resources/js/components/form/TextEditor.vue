@@ -2,7 +2,7 @@
     <label>{{ label }}: </label>
     <div class="mb-1">
         <ckeditor :value="modelValue" @input="updateValue" :editor="editor" :config="editorConfig"></ckeditor>
-        <span v-if="error" class="error">{{ error }}</span>
+        <span v-if="error" class="error text-danger">{{ error }}</span>
     </div>
 </template>
 

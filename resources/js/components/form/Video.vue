@@ -2,7 +2,7 @@
     <label>{{ label }}: </label>
     <div class="mb-1">
         <input type="file" @input="updateValue" class="form-control" accept="video/*" />
-        <span v-if="error" class="error">{{ error }}</span>
+        <span v-if="error" class="error text-danger">{{ error }}</span>
     </div>
 </template>
 

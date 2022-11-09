@@ -18,8 +18,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
-
         return inertia('Backend/Category', [
             'categories' => Category::query()->with("photos")
                 ->when(Request::input('search'), function ($query, $search) {

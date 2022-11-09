@@ -18,8 +18,7 @@
                     <li class="nav-item me-auto">
                         <Link preserve-scroll class="navbar-brand"
                             href="#">
-                            <span class="brand-logo">
-                            </span>
+                            <span class="brand-logo"></span>
 <!--                            <h2 class="brand-text">{{ this.$page.props.appName }}</h2>-->
                         <img :src="this.$page.props.logo" alt="logo" style="max-width: 120px; min-width: 120px;">
                         </Link>
@@ -52,9 +51,10 @@
                 </li>
 
 
+<!--                job tools -->
                 <li class="nav-item has-sub" :class="{'open' : clickMenu === 'Courses'}"  @click="toggleSubMenu('Courses')">
                     <Link preserve-scroll class="d-flex align-items-center" href="#">
-                        <Icon title="book" />
+                        <vue-feather type="cloud-lightning" />
                         <span class="menu-title text-truncate">Job Tools</span>
                     </Link>
 
@@ -99,12 +99,63 @@
                         -->
                     </ul>
                 </li>
-                <li class=" nav-item">
-                    <Link preserve-scroll class="d-flex align-items-center" href="/panel/subscriptions">
-                        <Icon title="chrome" width="24" height="24" />
-                        <span class="menu-title text-truncate">Subscriptions</span>
+
+<!--                job creators tools-->
+                <li class="nav-item has-sub" :class="{'open' : clickMenu === 'creators'}"  @click="toggleSubMenu('creators')">
+                    <Link preserve-scroll class="d-flex align-items-center" href="#">
+                        <vue-feather type="rss" />
+                        <span class="menu-title text-truncate">Creators</span>
+                    </Link>
+
+                    <ul class="menu-content">
+                        <li @click="toggleSubMenu('creators')">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/companies`">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-item text-truncate">Companies</span>
+                            </Link>
+                        </li>
+                        <li @click="toggleSubMenu('creators')">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/sub_categories`">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-item text-truncate">Seekers</span>
+                            </Link>
+                        </li>
+                        <li @click="toggleSubMenu('creators')">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/child_categories`">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-item text-truncate">Recruiters</span>
+                            </Link>
+                        </li>
+                        <!--
+                        <li @click="toggleSubMenu('Courses')">
+                            <Link preserve-scroll class="d-flex align-items-center" href="/panel/questions">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-title text-truncate">Questions</span>
+                            </Link>
+                        </li>
+                        <li @click="toggleSubMenu('Courses')">
+                            <Link preserve-scroll class="d-flex align-items-center" href="/panel/courses">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-title text-truncate">Courses</span>
+                            </Link>
+                        </li>
+                        <li @click="toggleSubMenu('Courses')">
+                            <Link preserve-scroll class="d-flex align-items-center" href="/panel/mocktests">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-title text-truncate">Mocktests</span>
+                            </Link>
+                        </li>
+                        -->
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/jobs`">
+                        <vue-feather type="layers"/>
+                        <span class="menu-title text-truncate">Jobs</span>
                     </Link>
                 </li>
+
                 <li class=" nav-item">
                     <Link preserve-scroll class="d-flex align-items-center" href="/panel/transactions">
                         <Icon title="dollar-sign" width="24" height="24" />
@@ -205,6 +256,8 @@ const collapseTogglerIcon = computed(() => {
       openClass.value = openClass.value ? '' : 'open'
       clickMenu.value = clickMenu.value === val ? '' : val
   }
+
+
 
   const updateMouseHovered = val => {
     isMouseHovered.value = val

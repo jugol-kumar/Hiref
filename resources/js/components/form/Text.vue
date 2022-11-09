@@ -1,5 +1,5 @@
 <template>
-    <label v-if="label">{{ label }}: </label>
+    <label v-if="label">{{ label }} </label>
     <div class="mb-1">
         <div class="input-group">
             <span class="input-group-text" v-if="prefix">{{ prefix }}</span>
@@ -11,7 +11,7 @@
             class="form-control" />
             <span class="input-group-text" v-if="suffix">{{ suffix }}</span>
         </div>
-        <span v-if="error" class="error">{{ error }}</span>
+        <span v-if="error" class="error text-danger">{{ error }}</span>
     </div>
 </template>
 

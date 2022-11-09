@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('about')->nullable();
             $table->date('dob')->nullable();
-            $table->enum('role', ['student', 'instructor', 'admin'])->default('student');
+            $table->enum('role', ['recruiters', 'seekers', 'admin'])->default('seekers');
             $table->string('gender', 191)->nullable();
             $table->string('married_status', 191)->nullable();
             $table->string('address', 191)->nullable();

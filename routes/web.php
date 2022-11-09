@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BusinessSettingController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
@@ -33,13 +35,11 @@ use App\Http\Controllers\PayPalPaymentController;
 */
 
 
-Route::controller(HomeController::class)->name('client')->group(function (){
+Route::controller(HomeController::class)->name('client.')->group(function (){
     Route::get('/', 'home')->name('home');
+    Route::get('/single-job/{job_title_slug}', 'singleJob')->name('single_job');
 });
 
-Route::get('/date', function (){
-   return now()->toString();
-});
 
 //Route::get('/', [HomeController::class, 'home']);
 Route::get('/contact', [HomeController::class, 'contact']);
@@ -66,7 +66,6 @@ Route::any('logout', [LoginController::class, 'destroy'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::prefix('student')->middleware('is_student')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'student'])->name('dashboard');
-
     });
 
     Route::prefix('panel')->group(function () {
@@ -77,6 +76,11 @@ Route::middleware('auth')->group(function () {
             Route::resource('sub_categories', SubCategoryController::class);
             Route::resource('child_categories', ChildCategoryController::class);
 
+            Route::resource('companies', CompanyController::class);
+            Route::post('companies/{id}/update', [CompanyController::class, 'updateCompany']);
+
+            Route::resource('jobs', JobController::class);
+            Route::post('child-categories-by-category-id', [JobController::class, 'allSubcategory'])->name('allSubCategory');
 
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');
@@ -85,11 +89,17 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('instructor')->group(function(){
             Route::get('dashboard', [DashboardController::class, 'instructor'])->name('instructor.dashboard');
-
         });
     });
+
+
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+
+Route::get('/test', function (){
+    inertia('Backend/New');
 });

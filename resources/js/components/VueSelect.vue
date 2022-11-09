@@ -25,6 +25,22 @@
 <!--}-->
 <!--</script>-->
 
+
+<!--                <div class="form-group">
+                    <label for="categor_yoption"> Categories </label>
+                    <select name="" id="categor_yoption">
+                        <option value="">~~ select category ~~</option>
+                        <optgroup v-for="category in categories" :label="category.name">
+                            <option v-for="option in category.children_categories" :value="option.id">
+                                {{ option.name }}
+                                <span class="badge badge-light-primary" v-for="osub in option.">{{ osub.name }}</span>
+                            </option>
+                        </optgroup>
+                    </select>
+                </div>-->
+
+
+
 <template>
     <label>{{ title }} </label>
     <div class="mb-1">
