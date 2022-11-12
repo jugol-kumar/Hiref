@@ -101,5 +101,5 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 
 Route::get('/test', function (){
-    inertia('Backend/New');
+    return view('frontend.test_vue');
 });

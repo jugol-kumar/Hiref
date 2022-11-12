@@ -27,6 +27,7 @@
     <link href="{{ asset("frontend") }}/assets/libs/nouislider/dist/nouislider.min.css" rel="stylesheet">
     <link href="{{ asset("frontend") }}/assets/libs/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
 
+    @stack('css')
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset("frontend") }}/assets/css/theme.min.css">
@@ -93,7 +94,7 @@
 <!-- Theme JS -->
 <script src="{{ asset("frontend") }}/assets/js/theme.min.js"></script>
 
-
+@stack('js')
 </body>
 
 <!-- Mirrored from codescandy.com/geeks-bootstrap-5/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Aug 2022 07:21:27 GMT -->
