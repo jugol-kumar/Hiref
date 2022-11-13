@@ -38,6 +38,8 @@ use App\Http\Controllers\PayPalPaymentController;
 Route::controller(HomeController::class)->name('client.')->group(function (){
     Route::get('/', 'home')->name('home');
     Route::get('/single-job/{job_title_slug}', 'singleJob')->name('single_job');
+
+    Route::get('/recruiters', 'recruiter')->name('recruiter');
 });
 
 

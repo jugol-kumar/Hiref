@@ -53,4 +53,14 @@ class HomeController extends Controller
         $course = Course::where('slug', $slug)->first();
         return view('checkout', compact('course'));
     }
+
+
+
+    // recruiter
+
+    public function recruiter(){
+        return view("frontend.recuriator");
+    }
+
+
 }

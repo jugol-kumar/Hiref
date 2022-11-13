@@ -24,7 +24,7 @@
                     <a class="nav-link p-4" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-4" href="javascript:void(0)">Recruiters</a>
+                    <a class="nav-link p-4" href="{{ route("client.recruiter") }}">Recruiters</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link p-4" href="javascript:void(0)">Job Seekers</a>
