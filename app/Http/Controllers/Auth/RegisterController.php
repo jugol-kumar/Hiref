@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Recruiter;
 use App\Models\User;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
@@ -47,4 +48,35 @@ class RegisterController extends Controller
 
         return redirect()->intended('dashboard');
     }
+
+    public function create(){
+        Request::validate([
+            'name'           => 'required|string|max:30',
+            'email'          => 'required|email|unique:users',
+            'phone'          => 'required|max:15|unique:users',
+            'company'        => 'required|string',
+            'designation'    => 'required',
+            'password'       => 'required|min:6',
+            'privacy_policy' => 'required'
+        ]);
+
+        $user = User::create([
+            'name'     => Request::input('name'),
+            'email'    => Request::input('email'),
+            'phone'    => Request::input('phone'),
+            'password' => Request::input('password'),
+            'role'     => 'recruiters',
+        ]);
+
+        $recruiter = new Recruiter();
+        $recruiter->user_id = $user->id;
+        $recruiter->company_name = Request::input('company');
+        $recruiter->designation = Request::input('designation');
+        $recruiter->save();
+
+        Auth::login($user);
+        return redirect()->route('recruiter.dashboard')->with('success', 'Registration Successfully done...');
+    }
+
+
 }

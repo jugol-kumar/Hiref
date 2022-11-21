@@ -1,9 +1,10 @@
 import { createApp, h } from "vue";
 
 import chatSection from './components/Test'
-
+import recruitersProfile from './Pages/Recuriters/Profile.vue'
 createApp({
     components:{
-        chatSection
+        chatSection,
+        recruitersProfile
     }
-}).mount('#myDev')
+}).mount('#frontendDiv')

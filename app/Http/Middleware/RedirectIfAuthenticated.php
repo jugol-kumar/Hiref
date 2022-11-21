@@ -22,11 +22,11 @@ class RedirectIfAuthenticated
         if ($guard == "web" && Auth::guard($guard)->check()) {
             return redirect('/dashboard');
         }
-        if ($guard == "instructor" && Auth::guard($guard)->check()) {
-            return redirect('/instructor/dashboard');
+        if ($guard == "recruiters" && Auth::guard($guard)->check()) {
+            return redirect()->intended('/panel/recruiters/dashboard');
         }
         if ($guard == "admin" && Auth::guard($guard)->check()) {
-            return redirect('panel/admin/dashboard');
+            return redirect()->intended('/panel/admin/dashboard');
         }
         if (Auth::guard($guard)->check()) {
             return redirect('/panel/admin/dashboard');

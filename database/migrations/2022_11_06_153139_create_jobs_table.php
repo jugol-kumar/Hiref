@@ -30,6 +30,8 @@ return new class extends Migration
             $table->integer('min_experience')->default(0);
             $table->integer('max_experience');
             $table->enum('experience_type', ['year', 'month', 'days'])->default('year');
+            $table->enum('lived', ['lived', 'cancel', 'draft', 'pending', 'deleted']);
+            $table->integer('show_count')->default(0);
             $table->integer('company')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('creator')->unsigned();

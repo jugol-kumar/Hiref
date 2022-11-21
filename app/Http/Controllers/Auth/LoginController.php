@@ -38,8 +38,8 @@ class LoginController extends Controller
             $request->session()->regenerate();
             if (Auth::user()->role == "admin") {
                 return redirect()->intended('/panel/admin/dashboard');
-            } elseif (Auth::user()->role == "instructor") {
-                return redirect()->intended('/panel/dashboard');
+            } elseif (Auth::user()->role == "recruiters") {
+                return redirect()->intended('/panel/recruiters/dashboard');
             } else {
                 return redirect()->intended('/dashboard');
             }
@@ -55,6 +55,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login');
+        return redirect('/');
     }
 }

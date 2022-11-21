@@ -3,6 +3,7 @@
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\RecruitersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
@@ -36,10 +37,13 @@ use App\Http\Controllers\PayPalPaymentController;
 
 
 Route::controller(HomeController::class)->name('client.')->group(function (){
-    Route::get('/', 'home')->name('home');
-    Route::get('/single-job/{job_title_slug}', 'singleJob')->name('single_job');
+    Route::get('', 'home')->name('home');
+    Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
+    Route::get('recruiters', 'recruiter')->name('recruiter');
+});
 
-    Route::get('/recruiters', 'recruiter')->name('recruiter');
+Route::controller(RecruitersController::class)->prefix('recruiters')->name('recruiter.')->group(function (){
+    Route::post('create', 'create')->name('create');
 });
 
 
@@ -61,7 +65,8 @@ Route::middleware('guest')->group(function () {
     Route::get('login', [LoginController::class, 'login'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate']);
     Route::get('register', [RegisterController::class, 'register'])->name('register');
-    Route::post('register', [RegisterController::class, 'store'])->name('student.store');
+    Route::post('recruiter/register', [RegisterController::class, 'create'])->name('recruiter.create');
+    Route::post('recruiter/login', [LoginController::class, 'authenticate'])->name('recruiter.login');
 });
 Route::any('logout', [LoginController::class, 'destroy'])->name('logout');
 
@@ -89,8 +94,14 @@ Route::middleware('auth')->group(function () {
         });
 
 
-        Route::prefix('instructor')->group(function(){
-            Route::get('dashboard', [DashboardController::class, 'instructor'])->name('instructor.dashboard');
+        Route::prefix('recruiters')->name('recruiter.')->group(function(){
+            Route::get('dashboard', [DashboardController::class, 'recruiters'])->name('dashboard');
+
+            Route::get('jobs', [RecruitersController::class, 'allJobs'])->name('allJobs');
+            Route::get('create-job', [RecruitersController::class, 'createJob'])->name('createJob');
+
+            Route::get('sub-category/by-category-id/{id}', [RecruitersController::class, 'getSubCat'])->name('getSubCat');
+            Route::get('child-category/by-sub-category-id/{id}', [RecruitersController::class, 'getChildCat'])->name('getChildCat');
         });
     });
 

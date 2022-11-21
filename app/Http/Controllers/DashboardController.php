@@ -8,6 +8,7 @@ use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
 use mysql_xdevapi\Exception;
 use Opcodes\LogViewer\Facades\LogViewer;
 
@@ -47,8 +48,8 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function instructor()
+    public function recruiters()
     {
-        return inertia('Backend/Dashboard');
+        return view('recruiters.dashboard');
     }
 }

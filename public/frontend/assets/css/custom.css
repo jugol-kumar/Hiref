@@ -6,6 +6,12 @@
     border-bottom: 3px solid;
     border-color: var(--bs-btn-bg);
 }
+
+.left-header .menu_active{
+    border-bottom: 3px solid;
+    border-color: var(--bs-btn-bg);
+}
+
 .navbar .dropdown-menu {
     position: absolute;
     left: -110px;

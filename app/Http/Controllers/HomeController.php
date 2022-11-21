@@ -59,7 +59,7 @@ class HomeController extends Controller
     // recruiter
 
     public function recruiter(){
-        return view("frontend.recuriator");
+        return view("recruiters.recuriator");
     }
 
 

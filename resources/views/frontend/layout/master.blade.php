@@ -7,6 +7,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_token" content="{{csrf_token()}}" />
+
     <!-- Favicon icon-->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset("frontend") }}/assets/images/favicon/favicon.ico">
 
@@ -36,15 +38,18 @@
 </head>
 
 <body class="bg-white">
-<!-- navbar login -->
+<div id="frontendDiv">
+
+    <!-- navbar login -->
 @include('frontend.inc.header')
 <!-- Page Content -->
-    @yield('content')
+@yield('content')
 <!-- Page Content -->
-<!-- footer -->
+    <!-- footer -->
 @include('frontend.inc.footer')
 <!-- footer -->
 
+</div>
 <!-- Scripts -->
 <!-- Libs JS -->
 <script src="{{ asset("frontend") }}/assets/libs/jquery/dist/jquery.min.js"></script>
@@ -86,14 +91,14 @@
 
 
 <!-- CDN File for moment -->
-<script src='../../../../cdn.jsdelivr.net/npm/moment%402.29.1/min/moment.min.js'></script>
+<script src='https://momentjs.com/downloads/moment.js'></script>
 
 
 
 
+<script src="{{ asset('js/main.js') }}"></script>
 <!-- Theme JS -->
 <script src="{{ asset("frontend") }}/assets/js/theme.min.js"></script>
-
 @stack('js')
 </body>
 
