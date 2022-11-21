@@ -108,23 +108,36 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+
                                                 <div class="mb-3">
-                                                    <label class="form-label">Courses level</label>
-                                                    <select class="selectpicker" data-width="100%">
-                                                        <option value="">Select level</option>
-                                                        <option value="intermediate">Intermediate</option>
-                                                        <option value="Beignners">Beignners</option>
-                                                        <option value="Advance">Advance</option>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Course Description</label>
-                                                    <div id="editor">
-                                                        <p>Insert course description</p>
-                                                        <p>Some initial <strong>bold</strong> text</p>
-                                                        <p><br /></p>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <label class="form-label">Job Type</label>
+                                                            <select name="job_type" class="selectpicker" data-width="100%">
+                                                                <option value="">Select Type</option>
+                                                                <option value="Full Time">Full Time</option>
+                                                                <option value="Part Time">Part Time</option>
+                                                                <option value="Freelance">Freelance</option>
+                                                                <option value="Internship">Internship</option>
+                                                                <option value="Temporary">Temporary</option>
+                                                                <option value="Contract">Contract</option>
+                                                                <option value="Seasonal">Seasonal</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col">
+                                                            <label class="form-label">Label</label>
+                                                            <select name="job_label" class="selectpicker" data-width="100%">
+                                                                <option value="" selected disabled>Select level</option>
+                                                                <option value="Beginner">Beginner</option>
+                                                                <option value="Junior">Junior</option>
+                                                                <option value="Mid-level">Mid-level</option>
+                                                                <option value="Senior">Senior</option>
+                                                                <option value="Lead">Lead</option>
+                                                                <option value="Manager">Manager</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                    <small>A brief summary of your courses.</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -133,31 +146,30 @@
                                             Next
                                         </button>
                                     </div>
+
+
+
                                     <!-- Content two -->
                                     <div id="test-l-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="courseFormtrigger2">
                                         <!-- Card -->
                                         <div class="card mb-3  border-0">
+
                                             <div class="card-header border-bottom px-4 py-3">
                                                 <h4 class="mb-0">Courses Media</h4>
                                             </div>
                                             <!-- Card body -->
                                             <div class="card-body">
-                                                <div class="custom-file-container mb-4" data-upload-id="courseImage"></div>
-                                                <div>
-                                                    <input type="url" class="form-control" placeholder="Video URL" />
+
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Job Description</label>
+                                                    <textarea name="input" placeholder="Textarea" class="form-control"></textarea>
                                                 </div>
-                                                <small class="mt-3 d-block">Enter a valid video URL. Students who watch a
-                                                    well-made promo video are 5X more likely to enroll in
-                                                    your course.
-                                                </small>
-                                                <div
-                                                    class="mt-3 d-flex justify-content-center position-relative rounded py-14 border-white border rounded bg-cover"
-                                                    style="background-image: url({{ asset('frontend') }}/assets/images/course/course-javascript.jpg);
-                                                        ">
-                                                    <a class="popup-youtube icon-shape rounded-circle btn-play icon-xl text-decoration-none"
-                                                       href="https://www.youtube.com/watch?v=JRzWRZahOVU">
-                                                        <i class="fe fe-play fs-3"></i>
-                                                    </a>
+
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Job</label>
+                                                    <textarea name="input" placeholder="Textarea" class="form-control quill-editor"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -546,6 +558,23 @@
                 $('#child_category').empty();
             }
         }
+
+
+        $('.quill-editor').each(function(i, el) {
+            var el = $(this), id = 'quilleditor-' + i, val = el.val(), editor_height = 200;
+            var div = $('<div/>').attr('id', id).css('height', editor_height + 'px').html(val);
+            el.addClass('d-none');
+            el.parent().append(div);
+
+            var quill = new Quill('#' + id, {
+                modules: { toolbar: true },
+                theme: 'snow'
+            });
+            quill.on('text-change', function() {
+                el.html(quill.getContents());
+            });
+        });
     </script>
+
 
 @endpush
