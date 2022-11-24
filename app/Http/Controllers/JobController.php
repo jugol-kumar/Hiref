@@ -54,6 +54,7 @@ class JobController extends Controller
         return inertia('Backend/Jobs/CreateNew', [
             'categories' => Category::select('id', 'name')->get(),
             'sub_categories' => SubCategory::query()
+
                 ->when(Request::input('category_id'), function ($query, $category_id) {
                     $query->where('category_id', $category_id);
                 })

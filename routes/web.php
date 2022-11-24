@@ -99,9 +99,12 @@ Route::middleware('auth')->group(function () {
 
             Route::get('jobs', [RecruitersController::class, 'allJobs'])->name('allJobs');
             Route::get('create-job', [RecruitersController::class, 'createJob'])->name('createJob');
+            Route::post('post-new-job', [RecruitersController::class, 'storeJob'])->name('storeJob');
 
             Route::get('sub-category/by-category-id/{id}', [RecruitersController::class, 'getSubCat'])->name('getSubCat');
             Route::get('child-category/by-sub-category-id/{id}', [RecruitersController::class, 'getChildCat'])->name('getChildCat');
+
+
         });
     });
 
