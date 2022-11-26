@@ -48,6 +48,7 @@
     <!-- footer -->
 @include('frontend.inc.footer')
 <!-- footer -->
+    @include('sweetalert::alert')
 
 </div>
 <!-- Scripts -->
@@ -93,12 +94,30 @@
 <!-- CDN File for moment -->
 <script src='https://momentjs.com/downloads/moment.js'></script>
 
-
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="{{ asset('js/main.js') }}"></script>
 <!-- Theme JS -->
 <script src="{{ asset("frontend") }}/assets/js/theme.min.js"></script>
+
+<script>
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
+</script>
+
 @stack('js')
 </body>
 

@@ -10,7 +10,7 @@
                         <div class="d-lg-flex align-items-center justify-content-between">
                             <!-- Content -->
                             <div class="mb-4 mb-lg-0">
-                                <h1 class="text-white mb-1">Add New Job</h1>
+                                <h1 class="text-white mb-1">Edit New Job</h1>
                                 <p class="mb-0 text-white lead">
                                     Just fill the form and create your courses.
                                 </p>
@@ -62,8 +62,9 @@
                             </div>
                             <!-- Stepper content -->
                             <div class="bs-stepper-content mt-5">
-                                <form action="{{ route('recruiter.storeJob') }}" method="post" id="jobOfferForm">
+                                <form action="{{ route('recruiter.updateJob', $job->id) }}" method="post" id="jobOfferForm">
                                     @csrf
+                                    @method('PUT')
                                     <!-- Content one -->
                                     <div id="test-l-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="courseFormtrigger1">
                                         <!-- Card -->
@@ -75,7 +76,7 @@
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <label for="courseTitle" class="form-label">Job Title</label>
-                                                    <input name="title" id="courseTitle" class="form-control" type="text" placeholder="Enter Job Title" />
+                                                    <input name="title" id="courseTitle" class="form-control" type="text" value="{{ $job->title }}" />
 
                                                     @error('title')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -184,7 +185,7 @@
 
                                                 <div class="mb-3">
                                                     <label class="form-label">Job</label>
-                                                    <textarea name="job_details" placeholder="Textarea" class="form-control quill-editor"></textarea>
+                                                    <textarea name="job_details" placeholder="Textarea" value="{{ $job->job_details }}" class="form-control quill-editor"></textarea>
 
                                                 </div>
                                                 @error('job_details')
@@ -216,7 +217,7 @@
                                                     <select class="selectpicker" data-width="100%" name="company">
                                                         <option selected disabled  value="">Select Company</option>
                                                         @foreach($companies as $com)
-                                                            <option value="{{ $com->id }}">{{ $com->name }}</option>
+                                                            <option value="{{ $com->id }}" {{ $com->id == $job->company ? 'selected' : '' }}>{{ $com->name }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('selectpicker')
@@ -229,7 +230,7 @@
                                                             <label class="form-label">Start Date <span class="text-danger">*</span></label>
                                                             <div class="input-group me-3">
                                                                 <input class="form-control flatpickr flatpickr-input active"
-                                                                       type="text" placeholder="Select Date"
+                                                                       type="text" value="{{ $job->declined_date }}"
                                                                        name="declined_date"
                                                                        aria-describedby="basic-addon2" readonly="readonly">
                                                                 <span class="input-group-text text-muted" id="basic-addon2"><i class="fe fe-calendar"></i></span>
@@ -241,7 +242,7 @@
                                                         </div>
                                                         <div class="col">
                                                             <label class="form-label">Application target</label>
-                                                            <input name="web_address" type="text" class="form-control" placeholder="https://creativetechpark.com">
+                                                            <input name="web_address" type="text" class="form-control" value="{{ $job->web_address }}">
 
                                                             @error('web_address')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -251,7 +252,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="" class="form-label">Full Address</label>
-                                                    <textarea name="location" class="form-control" rows="5" placeholder="full address"></textarea>
+                                                    <textarea name="location" class="form-control" rows="5" value="{{ $job->location }}"></textarea>
 
                                                     @error('location')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -260,7 +261,7 @@
 
                                                 <div class="mb-3 d-flex justify-content-between">
                                                     <div class="form-check form-switch">
-                                                        <input name="is_remote" class="form-check-input" type="checkbox" role="switch" checked="">
+                                                        <input name="is_remote" class="form-check-input" type="checkbox" role="switch" {{ $job->is_remote ? 'checked' : '' }}>
                                                         <label class="form-check-label">Is Remote</label>
 
                                                         @error('is_remote')
@@ -269,7 +270,7 @@
                                                     </div>
 
                                                     <div class="form-check form-switch">
-                                                        <input name="fultime_remote" class="form-check-input" type="checkbox" role="switch" checked="">
+                                                        <input name="fultime_remote" class="form-check-input" type="checkbox" role="switch" {{ $job->is_remote ? 'fultime_remote' : '' }}>
                                                         <label class="form-check-label">Is Full-time Remote</label>
 
                                                         @error('fultime_remote')
@@ -278,7 +279,7 @@
                                                     </div>
 
                                                     <div class="form-check form-switch">
-                                                        <input name="is_published" class="form-check-input" type="checkbox" role="switch" checked="">
+                                                        <input name="is_published" class="form-check-input" type="checkbox" role="switch" {{ $job->is_remote ? 'is_published' : '' }}>
                                                         <label class="form-check-label">Publication Status</label>
 
                                                         @error('is_published')
@@ -286,7 +287,7 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-check form-switch">
-                                                        <input name="is_featured" class="form-check-input" type="checkbox" role="switch" checked="">
+                                                        <input name="is_featured" class="form-check-input" type="checkbox" role="switch" {{ $job->is_remote ? 'is_featured' : '' }}>
                                                         <label class="form-check-label">Featured Status</label>
 
                                                         @error('is_featured')
@@ -322,10 +323,10 @@
                                                         <div class="input-group">
                                                             <input type="number" class="form-control"
                                                                    name="min_experience"
-                                                                   placeholder="Minimum Work Exprience" aria-label="Amount">
+                                                                   value="{{ $job->min_experience }}" aria-label="Amount">
                                                             <input type="number" class="form-control"
                                                                    name="max_experience"
-                                                                   placeholder="Maximum Work Exprience" aria-label="Amount">
+                                                                   value="{{ $job->max_experience }}" aria-label="Amount">
                                                             <select name="experience_type" class="selectpicker" placeholder="Chose Exprience Type">
                                                                 <option selected value="" disabled>~~ Chose Experience Type ~~</option>
                                                                 <option value="year">Year</option>
@@ -348,7 +349,7 @@
                                                             <select name="currency" class="selectpicker" placeholder="Select Currency">
                                                                 <option selected value="" disabled>~~ Select Currency ~~</option>
                                                                 @foreach($countries as $country)
-                                                                    <option value="{{ $country->id }}">{{ $country->name ."/" . $country->currency_symbol  }}</option>
+                                                                    <option value="{{ $country->id }}" {{ $job->currency == $country->id ? 'selected' : '' }}>{{ $country->name ."/" . $country->currency_symbol  }}</option>
                                                                 @endforeach
                                                             </select>
 
@@ -357,14 +358,14 @@
                                                             @enderror
                                                             <input type="number" class="form-control"
                                                                    name="min_salary"
-                                                                   placeholder="Minimum Work Salary" aria-label="Amount">
+                                                                   value="{{ $job->min_salary }}" aria-label="Amount">
 
                                                             @error('min_salary')
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                             <input type="number" class="form-control"
                                                                    name="max_salary"
-                                                                   placeholder="Maximum Work Salary" aria-label="Amount">
+                                                                   value="{{ $job->max_salary }}" aria-label="Amount">
 
                                                             @error('max_salary')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -378,7 +379,7 @@
                                                     <div class="row">
                                                        <div class="col">
                                                            <label class="form-label">Hash Tag</label>
-                                                           <input name='tags' placeholder="Add has Tags" autofocus>
+                                                           <input name='tags' value="{{ $job->tags }}" autofocus>
 
                                                            @error('tags')
                                                            <span class="text-danger">{{ $message }}</span>
@@ -387,7 +388,7 @@
 
                                                        <div class="col">
                                                            <label class="form-label">Required Skills</label>
-                                                           <input name='skills' placeholder="Required Skills" autofocus>
+                                                           <input name='skills' value="{{ $job->skills }}" autofocus>
 
                                                            @error('skills')
                                                            <span class="text-danger">{{ $message }}</span>

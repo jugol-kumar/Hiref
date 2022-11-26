@@ -10,52 +10,31 @@
     <!-- Collapse -->
     <div class="collapse navbar-collapse" id="sidenav">
         <div class="navbar-nav flex-column">
-            <span class="navbar-header">Dashboard</span>
             <ul class="list-unstyled ms-n2 mb-4">
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is("recruiter.dashboard") ?? "active" }}">
+                <li class="nav-item {{ Route::is("recruiter.dashboard") ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route("recruiter.dashboard") }}"><i class="fe fe-home nav-icon"></i>My
                         Dashboard</a>
                 </li>
+            </ul>
+            <span class="navbar-header">Operations</span>
+            <ul class="list-unstyled ms-n2 mb-4">
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is("recruiter.allJobs") ?? "active" }}">
+                <li class="nav-item {{ Route::is("recruiter.allJobs") || Route::is("recruiter.createJob") ? "active" : '' }}">
                     <a class="nav-link" href="{{ route("recruiter.allJobs") }}"><i class="fe fe-book nav-icon"></i>My Jobs</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="instructor-reviews.html"><i class="fe fe-star nav-icon"></i>Reviews</a>
-                </li>
-                <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="instructor-earning.html"><i
-                            class="fe fe-pie-chart nav-icon"></i>Earnings</a>
-                </li>
-                <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="instructor-order.html"><i
-                            class="fe fe-shopping-bag nav-icon"></i>Orders</a>
-                </li>
-                <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="instructor-students.html"><i class="fe fe-users nav-icon"></i>Students</a>
-                </li>
-                <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="instructor-payouts.html"><i
-                            class="fe fe-dollar-sign nav-icon"></i>Payouts</a>
-                </li>
-                <!-- Nav item -->
-                <li class="nav-item ">
-                    <a class="nav-link" href="instructor-quiz.html"><i
-                            class="fe fe-help-circle nav-icon"></i>Quiz</a>
+                <li class="nav-item {{ Route::is("recruiter.allCompanies") ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route("recruiter.allCompanies") }}"><i class="fe fe-cloud nav-icon"></i>My
+                        Companies</a>
                 </li>
             </ul>
             <!-- Navbar header -->
             <span class="navbar-header">Account Settings</span>
             <ul class="list-unstyled ms-n2 mb-0">
                 <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="profile-edit.html"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
+                <li class="nav-item {{ Route::is('recruiter.editProfile') }}">
+                    <a class="nav-link" href="{{ route('recruiter.editProfile') }}"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
                 </li>
                 <!-- Nav item -->
                 <li class="nav-item">
@@ -66,6 +45,15 @@
                     <a class="nav-link" href="social-profile.html"><i class="fe fe-refresh-cw nav-icon"></i>Social
                         Profiles</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="delete-profile.html"><i class="fe fe-trash nav-icon"></i>Delete
+                        Profile</a>
+                </li>
+                <!-- Nav item -->
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html"><i class="fe fe-power nav-icon"></i>Sign Out</a>
+                </li>
+                {{--
                 <!-- Nav item -->
                 <li class="nav-item">
                     <a class="nav-link" href="notifications.html"><i class="fe fe-bell nav-icon"></i>Notifications</a>
@@ -75,15 +63,8 @@
                     <a class="nav-link" href="profile-privacy.html"><i class="fe fe-lock nav-icon"></i>Profile
                         Privacy</a>
                 </li>
+                --}}
                 <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="delete-profile.html"><i class="fe fe-trash nav-icon"></i>Delete
-                        Profile</a>
-                </li>
-                <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="../index.html"><i class="fe fe-power nav-icon"></i>Sign Out</a>
-                </li>
             </ul>
         </div>
     </div>

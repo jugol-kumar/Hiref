@@ -3,7 +3,9 @@
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\RecruitersCompanyController;
 use App\Http\Controllers\RecruitersController;
+use App\Http\Controllers\RecruitersProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
@@ -97,12 +99,21 @@ Route::middleware('auth')->group(function () {
         Route::prefix('recruiters')->name('recruiter.')->group(function(){
             Route::get('dashboard', [DashboardController::class, 'recruiters'])->name('dashboard');
 
-            Route::get('jobs', [RecruitersController::class, 'allJobs'])->name('allJobs');
-            Route::get('create-job', [RecruitersController::class, 'createJob'])->name('createJob');
-            Route::post('post-new-job', [RecruitersController::class, 'storeJob'])->name('storeJob');
+            Route::get('jobs/jobs', [RecruitersController::class, 'allJobs'])->name('allJobs');
+            Route::get('jobs/create-job', [RecruitersController::class, 'createJob'])->name('createJob');
+            Route::post('jobs/post-new-job', [RecruitersController::class, 'storeJob'])->name('storeJob');
+            Route::delete('jobs/delete-job/{id}', [RecruitersController::class, 'deleteJob'])->name('deleteJob');
+            Route::get('jobs/edit-single-job/{job_slug}', [RecruitersController::class, 'editJob'])->name('editJob');
+            Route::put('jobs/update-single-job/{id}', [RecruitersController::class, 'updateJob'])->name('updateJob');
 
             Route::get('sub-category/by-category-id/{id}', [RecruitersController::class, 'getSubCat'])->name('getSubCat');
             Route::get('child-category/by-sub-category-id/{id}', [RecruitersController::class, 'getChildCat'])->name('getChildCat');
+
+            Route::get('company/my-all-companies', [RecruitersCompanyController::class, 'allCompanies'])->name('allCompanies');
+            Route::post('company/save-new-companies', [RecruitersCompanyController::class, 'saveCompany'])->name('saveCompany');
+
+
+            Route::get('edit-profile', [RecruitersProfileController::class, 'editProfile'])->name('editProfile');
 
 
         });

@@ -53,16 +53,18 @@
                             <td class="border-top-0">
                                 <div class="d-lg-flex">
                                     <div>
-                                        <a href="#">
-                                            <img src="{{ asset("frontend") }}/assets/images/course/course-wordpress.jpg" alt="" class="rounded img-4by3-lg" /></a>
+                                        <a href="{{ route('client.single_job', $value->slug) }}" target="_blank">
+                                            <img src="{{ config("app.url")."/storage/".$value->companyDetails->photos[0]->filename }}"
+                                                 height="70"
+                                                 alt="{{ config("app.name") }}" class="rounded img-4by3-lg">
+                                        </a>
                                     </div>
                                     <div class="ms-lg-3 mt-2 mt-lg-0">
                                         <h4 class="mb-1 h5">
-                                            <a href="#" class="text-inherit">
-                                                Create a Website with WordPress
-                                            </a>
+                                            <a href="{{ route('client.single_job', $value->slug) }}" class="text-inherit" target="_blank">{{ $value->title }}</a>
                                         </h4>
-                                        <ul class="list-inline fs-6 mb-0">
+                                        <span class="badge bg-light-primary text-primary">{{ $value->category->name }}</span>
+<!--                                        <ul class="list-inline fs-6 mb-0">
                                             <li class="list-inline-item">
                                                 <i class="mdi mdi-clock-time-four-outline text-muted me-1"></i>1h 30m
                                             </li>
@@ -74,7 +76,7 @@
                                                     <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
                                                 </svg>Beginner
                                             </li>
-                                        </ul>
+                                        </ul>-->
                                     </div>
                                 </div>
                             </td>
@@ -83,7 +85,7 @@
                                 <span class="text-warning">4.5<i class="mdi mdi-star"></i></span>(3,250)
                             </td>
                             <td class="border-top-0">
-                                <span class="badge bg-success">Live</span>
+                                <span class="badge bg-{{  $value->status ? 'primary' : 'warning' }}">{{ $value->status ? 'Published' : 'Un-Published' }}</span>
                             </td>
                             <td class="text-muted border-top-0">
                                 <span class="dropdown dropstart">
@@ -93,8 +95,20 @@
                                     </a>
                                     <span class="dropdown-menu" aria-labelledby="courseDropdown">
                                         <span class="dropdown-header">Setting </span>
-                                        <a class="dropdown-item" href="#"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="fe fe-trash dropdown-item-icon"></i>Remove</a>
+                                        <a class="dropdown-item" href="{{ route('recruiter.editJob', $value->slug) }}"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
+
+                                        <button  class="dropdown-item" type="button"
+                                                         onclick="deleteData({{ $value->id }})"
+                                                >
+                                            <i class="fe fe-trash  dropdown-item-icon"></i>  <span>Delete</span>
+                                        </button>
+                                        <form id="delete-form-{{ $value->id }}"
+                                              method="POST"
+                                              action="{{ route('recruiter.deleteJob', $value->id) }}"
+                                              style="display: none">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </span>
                                 </span>
                             </td>

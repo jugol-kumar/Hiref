@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
@@ -35,8 +37,14 @@ class Company extends Model
         return $this->morphMany(Gallery::class, 'imageable');
     }
 
-    public function companyCity(){
+    public function companyCity(): BelongsTo
+    {
         return $this->belongsTo(City::class, 'city');
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'companies_users')->withTimestamps();
     }
 
 

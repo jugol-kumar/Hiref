@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @method static create(array $array)
+ * @method static findOrFail(int|string|null $id)
  */
 class User extends Authenticatable
 {
@@ -112,5 +115,12 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'user_id');
     }
 
+    public function recruiters(){
+        return $this->hasMany(Recruiter::class, 'user_id');
+    }
 
+    public function companies(): HasMany
+    {
+        return $this->hasMany(Company::class);
+    }
 }
