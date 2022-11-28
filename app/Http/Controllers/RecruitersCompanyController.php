@@ -15,7 +15,7 @@ class RecruitersCompanyController extends Controller
 {
     public function allCompanies()
     {
-        $companies = Company::where('user_id', Auth::id())->with('photos')->get();
+        $companies = Company::where('user_id', Auth::id())->with('photos')->withCount("jobs")->paginate(10);
 
         return view('recruiters.company.index', compact('companies'));
     }
@@ -74,9 +74,14 @@ class RecruitersCompanyController extends Controller
 
         toast('Company Create Successfully Done...', 'success');
         return redirect()->route('recruiter.allCompanies');
-
-
-
     }
+
+    public function deleteCompany($id)
+    {
+        Company::findOrfail($id)->delete();
+        toast('Company Delete Successfully Done...', 'success');
+        return back();
+    }
+
 
 }

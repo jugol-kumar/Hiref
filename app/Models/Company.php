@@ -47,5 +47,9 @@ class Company extends Model
         return $this->belongsToMany(User::class, 'companies_users')->withTimestamps();
     }
 
+    public function jobs(){
+        return $this->hasMany(Job::class, 'company');
+    }
+
 
 }

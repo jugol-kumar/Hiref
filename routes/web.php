@@ -111,11 +111,19 @@ Route::middleware('auth')->group(function () {
 
             Route::get('company/my-all-companies', [RecruitersCompanyController::class, 'allCompanies'])->name('allCompanies');
             Route::post('company/save-new-companies', [RecruitersCompanyController::class, 'saveCompany'])->name('saveCompany');
+            Route::delete('company/delete-single-companies/{id}', [RecruitersCompanyController::class, 'deleteCompany'])->name('deleteCompany');
 
 
+            Route::post('change-profile-picture', [RecruitersProfileController::class, 'changeProfilePicture'])->name('changeProfilePicture');
+            Route::post('update-profile-information', [RecruitersProfileController::class, 'editPersonalInfo'])->name('editPersonalInfo');
             Route::get('edit-profile', [RecruitersProfileController::class, 'editProfile'])->name('editProfile');
 
+            Route::get('security-page', [RecruitersProfileController::class, 'security'])->name('security');
+            Route::post('update-email', [RecruitersProfileController::class, 'updateEmail'])->name('changeEmail');
+            Route::post('update-security-password', [RecruitersProfileController::class, 'changePassword'])->name('changePass');
 
+            Route::view('social-media-url-profile', 'recruiters.profile.socal_profile')->name('socialProfile');
+            Route::post('update-social-profile', [RecruitersProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
         });
     });
 

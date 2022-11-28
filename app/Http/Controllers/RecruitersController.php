@@ -34,7 +34,7 @@ class RecruitersController extends Controller
         ['categories' => Category::select('id', 'name')->get(),
             'countries' => Country::select('currency', 'currency_name', 'currency_symbol', 'name', 'id')->get(),
 
-            'companies' => Company::with('photos')->get(),
+            'companies' => Company::where('user_id', Auth::id())->with('photos')->get(),
 
             ]));
     }

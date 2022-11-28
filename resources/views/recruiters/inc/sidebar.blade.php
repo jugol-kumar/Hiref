@@ -37,21 +37,23 @@
                     <a class="nav-link" href="{{ route('recruiter.editProfile') }}"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="security.html"><i class="fe fe-user nav-icon"></i>Security</a>
+                <li class="nav-item {{ Route::is('recruiter.security') }}">
+                    <a class="nav-link " href="{{ route('recruiter.security') }}"><i class="fe fe-user nav-icon"></i>Security</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link" href="social-profile.html"><i class="fe fe-refresh-cw nav-icon"></i>Social
+                <li class="nav-item {{ Route::is('recruiter.socialProfile') }}">
+                    <a class="nav-link" href="{{ route('recruiter.socialProfile') }}"><i class="fe fe-refresh-cw nav-icon"></i>Social
                         Profiles</a>
                 </li>
+                {{--
                 <li class="nav-item">
                     <a class="nav-link" href="delete-profile.html"><i class="fe fe-trash nav-icon"></i>Delete
                         Profile</a>
                 </li>
+                --}}
                 <!-- Nav item -->
                 <li class="nav-item">
-                    <a class="nav-link" href="../index.html"><i class="fe fe-power nav-icon"></i>Sign Out</a>
+                    <a class="nav-link" href="{{ route('logout') }}"><i class="fe fe-power nav-icon"></i>Sign Out</a>
                 </li>
                 {{--
                 <!-- Nav item -->

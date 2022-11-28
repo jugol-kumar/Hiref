@@ -20,6 +20,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public $userPhoto;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -55,7 +57,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -82,12 +83,17 @@ class User extends Authenticatable
         );
     }
 
+    public function userPhoto(){
+        return $this->photo;
+    }
+
     protected function photo(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => $value ? Storage::url($value) : '/images/avatar.png',
         );
     }
+
 
     protected function certificate(): Attribute{
         return Attribute::make(get: fn ($value) => $value ? Storage::url($value) : '/images/avatar.png');
@@ -115,8 +121,8 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'user_id');
     }
 
-    public function recruiters(){
-        return $this->hasMany(Recruiter::class, 'user_id');
+    public function recruiter(){
+        return $this->hasOne(Recruiter::class, 'user_id');
     }
 
     public function companies(): HasMany

@@ -35,21 +35,21 @@
             </div>
             --}}
             <!-- Table -->
-            <div class="table-responsive border-0 overflow-y-hidden">
+            <div class="table-responsive table-striped border-0 overflow-hidden">
                 <table class="table mb-0 text-nowrap">
                     <thead class="table-light">
                     <tr>
+                        <th scope="col" class="border-0">Name</th>
+                        <th scope="col" class="border-0">Emp-Size</th>
+                        <th scope="col" class="border-0">Contact</th>
                         <th scope="col" class="border-0">Jobs</th>
-                        <th scope="col" class="border-0">Students</th>
-                        <th scope="col" class="border-0">Rating</th>
-                        <th scope="col" class="border-0">Status</th>
                         <th scope="col" class="border-0"></th>
                     </tr>
                     </thead>
                     <tbody>
                         @foreach($companies as $key => $company)
                         <tr>
-                            <td class="border-top-0">
+                            <td class="border-bottom-0">
                                 <div class="d-lg-flex">
                                     <div>
                                         <a href="#" target="_blank">
@@ -62,7 +62,7 @@
                                         <h4 class="mb-1 h5">
                                             <a href="#" class="text-inherit" target="_blank">{{ $company->name }}</a>
                                         </h4>
-                                        <span class="badge bg-light-primary text-primary">{{ $company->name }}</span>
+                                        <span class="badge bg-light-primary text-primary">{{ $company->starting_date->format('F-Y') }}</span>
 <!--                                        <ul class="list-inline fs-6 mb-0">
                                             <li class="list-inline-item">
                                                 <i class="mdi mdi-clock-time-four-outline text-muted me-1"></i>1h 30m
@@ -79,14 +79,15 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="border-top-0">11,200</td>
-                            <td class="border-top-0">
-                                <span class="text-warning">4.5<i class="mdi mdi-star"></i></span>(3,250)
+                            <td class="border-bottom-0">{{ $company->employee_size }}</td>
+                            <td class="d-flex flex-column border-bottom-0">
+                                <a href="mailto:{{ $company->email }}">{{ $company->email }}</a>
+                                <span>{{ $company->phone }}</span>
                             </td>
-                            <td class="border-top-0">
-                                <span class="badge bg-{{  $company->status ? 'primary' : 'warning' }}">{{ $company->status ? 'Published' : 'Un-Published' }}</span>
+                            <td class="border-bottom-0">
+                                <span class="badge bg-light-primary">{{ $company->jobs_count }}</span>
                             </td>
-                            <td class="text-muted border-top-0">
+                            <td class="text-muted border-bottom-0">
                                 <span class="dropdown dropstart">
                                     <a class="btn-icon btn btn-ghost btn-sm rounded-circle " href="#" role="button" id="courseDropdown"
                                        data-bs-toggle="dropdown"  data-bs-offset="-20,20" aria-expanded="false">
@@ -103,7 +104,7 @@
                                         </button>
                                         <form id="delete-form-{{ $company->id }}"
                                               method="POST"
-                                              action="{{ route('recruiter.deleteJob', $company->id) }}"
+                                              action="{{ route('recruiter.deleteCompany', $company->id) }}"
                                               style="display: none">
                                             @csrf
                                             @method('DELETE')
@@ -115,6 +116,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $companies->links() }}
             </div>
         </div>
     </div>
@@ -284,13 +286,6 @@
                         //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
                         console.log(this.result)
                         uploadFile.closest(".logoSection").find("i").remove();
-
-
-                        // width: 100%;
-                        // height: 100%;
-                        // background-position: center center;
-                        // background-size: cover;
-
                         uploadFile.closest(".logoSection").find('.imageShow').css({
                             "background-image": "url("+this.result+")",
                             "width": "100%",
