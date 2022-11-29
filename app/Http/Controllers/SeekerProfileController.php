@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gallery;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class RecruitersProfileController extends Controller
+class SeekerProfileController extends Controller
 {
-
-
-
 
     public function editProfile()
     {
-        return view('recruiters.profile.edit_profile');
+        return view('seekers.profile.edit_profile');
     }
 
     public function changeProfilePicture(Request $request){
@@ -42,22 +37,19 @@ class RecruitersProfileController extends Controller
 
     public function editPersonalInfo(Request $request){
         $request->validate([
-           'fname' => 'required|max:30',
-           'dob'   => 'required',
-           'address2' => 'required',
+            'fname' => 'required|max:30',
+            'dob'   => 'required',
+            'address2' => 'required',
             'designation' => 'required',
             'gender' => 'required'
         ]);
 
         Auth::user()->update([
-           'name' => $request->fname,
-           'dob' => $request->dob,
-           'address' => $request->address2,
-           'gender' => $request->gender,
+            'name' => $request->fname,
+            'dob' => $request->dob,
+            'address' => $request->address2,
+            'gender' => $request->gender,
             'about' => $request->about_me,
-        ]);
-        Auth::user()->recruiter->update([
-           'designation' => $request->designation,
         ]);
 
         toast('Info Update Successfully Done......', 'success');
@@ -66,7 +58,7 @@ class RecruitersProfileController extends Controller
     }
 
     public function security(){
-        return view('recruiters.profile.security');
+        return view('seekers.profile.security');
     }
 
     public function updateEmail(Request $request){
@@ -91,8 +83,6 @@ class RecruitersProfileController extends Controller
 
         $user = Auth::user();
         $hashedPassword = $user->password;
-
-
 
         if ( Hash::check($request->currentpassword , $hashedPassword)){
             if (!Hash::check($request->password, $hashedPassword)){
@@ -123,17 +113,14 @@ class RecruitersProfileController extends Controller
         ]);
 
         Auth::user()->update([
-           'twitter_url' => $request->twitter,
-           'youtube_url' => $request->youtube,
+            'twitter_url' => $request->twitter,
+            'youtube_url' => $request->youtube,
             'linkedin_url' => $request->linkedin
         ]);
 
         toast('Social Media Link Set Successfully Done....', 'success');
         return back();
-
     }
-
-
 
 
 }

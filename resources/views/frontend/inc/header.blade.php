@@ -28,7 +28,7 @@
                         <a class="nav-link p-4" href="{{ route("client.recruiter") }}">Recruiters</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link p-4" href="javascript:void(0)">Job Seekers</a>
+                        <a class="nav-link p-4" href="{{ route('client.seekers') }}">Job Seekers</a>
                     </li>
                     <div class="ms-2 mt-3 mt-lg-0 d-flex align-items-end">
                     <a href="{{ route('login') }}" class="bg-success rounded-pill px-5 py-2 text-black fw-bold me-3">Download app</a>
@@ -310,10 +310,22 @@
                                                 class="rounded-circle"
                                             />
                                         </div>
-                                        <a href="{{ auth()->user()->role=='admin' ? route('admin.dashboard') : route('recruiter.dashboard') }}" class="ms-3 lh-1">
-                                            <h5 class="mb-1 text-capitalize">{{ auth()->user()->name }}</h5>
-                                            <p class="mb-0 text-muted text-capitalize">{{ auth()->user()->role }}</p>
-                                        </a>
+                                        @if(auth()->user()->role=='admin' )
+                                            <a href="{{route('admin.dashboard') }}" class="ms-3 lh-1">
+                                                <h5 class="mb-1 text-capitalize">{{ auth()->user()->name }}</h5>
+                                                <p class="mb-0 text-muted text-capitalize">{{ auth()->user()->role }}</p>
+                                            </a>
+                                        @elseif(auth()->user()->role=='recruiters')
+                                            <a href="{{route('recruiter.dashboard') }}" class="ms-3 lh-1">
+                                                <h5 class="mb-1 text-capitalize">{{ auth()->user()->name }}</h5>
+                                                <p class="mb-0 text-muted text-capitalize">{{ auth()->user()->role }}</p>
+                                            </a>
+                                        @else
+                                            <a href="{{route('seeker.dashboard') }}" class="ms-3 lh-1">
+                                                <h5 class="mb-1 text-capitalize">{{ auth()->user()->name }}</h5>
+                                                <p class="mb-0 text-muted text-capitalize">{{ auth()->user()->role }}</p>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="dropdown-divider"></div>

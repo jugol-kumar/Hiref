@@ -54,7 +54,7 @@
                                 <div class="d-lg-flex">
                                     <div>
                                         <a href="{{ route('client.single_job', $value->slug) }}" target="_blank">
-                                            <img src="{{ config("app.url")."/storage/".$value->companyDetails->photos[0]->filename }}"
+                                            <img src="{{ global_asset($value->companyDetails->photos->count() ? $value->companyDetails->photos[0]->filename : null) }}"
                                                  height="70"
                                                  alt="{{ config("app.name") }}" class="rounded img-4by3-lg">
                                         </a>

@@ -57,10 +57,14 @@ class HomeController extends Controller
 
 
     // recruiter
-
     public function recruiter(){
         return view("recruiters.recuriator");
     }
 
+
+    // seekers
+    public function seekers(){
+        return view('seekers.seekers');
+    }
 
 }

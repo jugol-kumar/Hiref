@@ -6,6 +6,8 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\RecruitersCompanyController;
 use App\Http\Controllers\RecruitersController;
 use App\Http\Controllers\RecruitersProfileController;
+use App\Http\Controllers\SeekerController;
+use App\Http\Controllers\SeekerProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
@@ -42,6 +44,7 @@ Route::controller(HomeController::class)->name('client.')->group(function (){
     Route::get('', 'home')->name('home');
     Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
     Route::get('recruiters', 'recruiter')->name('recruiter');
+    Route::get('seekers', 'seekers')->name('seekers');
 });
 
 Route::controller(RecruitersController::class)->prefix('recruiters')->name('recruiter.')->group(function (){
@@ -69,6 +72,9 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisterController::class, 'register'])->name('register');
     Route::post('recruiter/register', [RegisterController::class, 'create'])->name('recruiter.create');
     Route::post('recruiter/login', [LoginController::class, 'authenticate'])->name('recruiter.login');
+
+    Route::get('seekers/register', [RegisterController::class, 'seekerRegister'])->name('seeker.register');
+    Route::post('seeker/create', [RegisterController::class, 'registerSeeker'])->name('registerSeeker');
 });
 Route::any('logout', [LoginController::class, 'destroy'])->name('logout');
 
@@ -96,7 +102,7 @@ Route::middleware('auth')->group(function () {
         });
 
 
-        Route::prefix('recruiters')->name('recruiter.')->group(function(){
+        Route::prefix('recruiters')->name('recruiter.')->middleware('recruiters')->group(function(){
             Route::get('dashboard', [DashboardController::class, 'recruiters'])->name('dashboard');
 
             Route::get('jobs/jobs', [RecruitersController::class, 'allJobs'])->name('allJobs');
@@ -125,6 +131,27 @@ Route::middleware('auth')->group(function () {
             Route::view('social-media-url-profile', 'recruiters.profile.socal_profile')->name('socialProfile');
             Route::post('update-social-profile', [RecruitersProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
         });
+
+        Route::prefix('seekers')->name('seeker.')->group(function (){
+            Route::get('dashboard', [SeekerController::class, 'dashboard'])->name('dashboard');
+
+            Route::post('change-profile-picture', [SeekerProfileController::class, 'changeProfilePicture'])->name('changeProfilePicture');
+            Route::post('update-profile-information', [SeekerProfileController::class, 'editPersonalInfo'])->name('editPersonalInfo');
+            Route::get('edit-profile', [SeekerProfileController::class, 'editProfile'])->name('editProfile');
+
+            Route::get('security-page', [SeekerProfileController::class, 'security'])->name('security');
+            Route::post('update-email', [SeekerProfileController::class, 'updateEmail'])->name('changeEmail');
+            Route::post('update-security-password', [SeekerProfileController::class, 'changePassword'])->name('changePass');
+
+            Route::view('social-media-url-profile', 'seekers.profile.socal_profile')->name('socialProfile');
+            Route::post('update-social-profile', [SeekerProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
+        });
+
+
+
+
+
+
     });
 
 
