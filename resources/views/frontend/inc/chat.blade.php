@@ -15,32 +15,44 @@
         <div class="chatbox__support">
             <div class="chatbox__header">
                 <div class="chatbox__image--header">
-                    <img src="{{ asset('frontend/chat/') }}/images/image.png" alt="image">
+                    <img src="{{ $reactor->photo }}" alt="image" class="icon-shape border rounded-circle" width="55" height="55">
                 </div>
                 <div class="chatbox__content--header">
-                    <h4 class="chatbox__heading--header">Chat support</h4>
-                    <p class="chatbox__description--header">There are many variations of passages of Lorem Ipsum available</p>
+                    <h4 class="chatbox__heading--header">{{ $reactor->name }}</h4>
+                    <p class="chatbox__description--header">{{ $reactor->role }}</p>
                 </div>
             </div>
             <div class="chatbox__messages">
                 <div>
-                    <div class="messages__item messages__item--visitor">
+<!--                    <div class="messages__item messages__item&#45;&#45;visitor">
                         Can you let me talk to the support?
                     </div>
-                    <div class="messages__item messages__item--operator">
+                    <div class="messages__item messages__item&#45;&#45;visitor">
+                        Can you let me talk to the support?
+                    </div>
+                    <div class="messages__item messages__item&#45;&#45;operator">
                         Sure!
                     </div>
-                    <div class="messages__item messages__item--visitor">
+                    <div class="messages__item messages__item&#45;&#45;visitor">
                         Need your help, I need a developer in my site.
                     </div>
-                    <div class="messages__item messages__item--operator">
+                    <div class="messages__item messages__item&#45;&#45;operator">
                         Hi... What is it? I'm a front-end developer, yay!
                     </div>
-                    <div class="messages__item messages__item--typing">
-                        <span class="messages__dot"></span>
-                        <span class="messages__dot"></span>
-                        <span class="messages__dot"></span>
+                    <div class="messages__item messages__item&#45;&#45;operator">
+                        Hi... What is it? I'm a front-end developer, yay!
                     </div>
+                    <div class="messages__item messages__item&#45;&#45;visitor">
+                        Need your help, I need a developer in my site.
+                    </div>
+                    <div class="messages__item messages__item&#45;&#45;operator">
+                        Hi... What is it? I'm a front-end developer, yay!
+                    </div>
+                    <div class="messages__item messages__item&#45;&#45;typing">
+                        <span class="messages__dot"></span>
+                        <span class="messages__dot"></span>
+                        <span class="messages__dot"></span>
+                    </div>-->
                 </div>
             </div>
             <div class="chatbox__footer">

@@ -7,6 +7,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_token" content="{{csrf_token()}}" />
+
     <!-- Favicon icon-->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset("frontend") }}/assets/images/favicon/favicon.ico">
 
@@ -27,6 +29,7 @@
     <link href="{{ asset("frontend") }}/assets/libs/nouislider/dist/nouislider.min.css" rel="stylesheet">
     <link href="{{ asset("frontend") }}/assets/libs/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
 
+    @stack('css')
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset("frontend") }}/assets/css/theme.min.css">
@@ -35,15 +38,19 @@
 </head>
 
 <body class="bg-white">
-<!-- navbar login -->
+<div id="frontendDiv">
+
+    <!-- navbar login -->
 @include('frontend.inc.header')
 <!-- Page Content -->
-    @yield('content')
+@yield('content')
 <!-- Page Content -->
-<!-- footer -->
+    <!-- footer -->
 @include('frontend.inc.footer')
 <!-- footer -->
+    @include('sweetalert::alert')
 
+</div>
 <!-- Scripts -->
 <!-- Libs JS -->
 <script src="{{ asset("frontend") }}/assets/libs/jquery/dist/jquery.min.js"></script>
@@ -85,15 +92,33 @@
 
 
 <!-- CDN File for moment -->
-<script src='../../../../cdn.jsdelivr.net/npm/moment%402.29.1/min/moment.min.js'></script>
+<script src='https://momentjs.com/downloads/moment.js'></script>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-
+<script src="{{ asset('js/main.js') }}"></script>
 <!-- Theme JS -->
 <script src="{{ asset("frontend") }}/assets/js/theme.min.js"></script>
 
+<script>
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
+</script>
 
+@stack('js')
 </body>
 
 <!-- Mirrored from codescandy.com/geeks-bootstrap-5/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Aug 2022 07:21:27 GMT -->

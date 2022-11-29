@@ -1,20 +1,20 @@
 @extends('frontend.layout.master')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('frontend/chat/') }}/css/chat.css">
+    <link rel="stylesheet" href="{{ asset('frontend/chat/') }}/css/style.css">
+    <link rel="stylesheet" href="{{ asset('frontend/chat/') }}/css/typing.css">
+@endpush
 
 @section('content')
     <div class="py-14">
         <div class="container">
             <div class="row">
-
                 <div class="offset-xl-2 col-xl-8 col-md-12 ">
-
                     <div class="d-xl-flex ">
                         <div class="mb-3 mb-md-0">
                             <!-- Img -->
-
-                            <img src="{{ config("app.url")."/storage/".$job->companyDetails->photos[0]->filename }}" alt=""
-                                 width="78" height="78"
-                                 class="icon-shape border rounded-circle">
+                            <img src="{{ config("app.url")."/storage/".$job->companyDetails->photos[0]->filename }}" alt="" width="78" height="78" class="icon-shape border rounded-circle">
                         </div>
                         <!-- text -->
                         <div class="ms-xl-3  w-100 mt-3 mt-xl-0">
@@ -106,7 +106,15 @@
             </div>
         </div>
     </div>
-    @include('frontend.inc.chat')
+
+    <div id="myDev">
+        <chat-section/>
+    </div>
 
 
+{{--    @include('frontend.inc.chat',  ['reactor' => $job->user])--}}
 @endsection
+
+@push('js')
+    <script src="{{ asset("js/main.js") }}"></script>
+@endpush

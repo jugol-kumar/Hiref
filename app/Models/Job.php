@@ -9,6 +9,7 @@ use Spatie\Sluggable\SlugOptions;
 
 /**
  * @method static create(array $data)
+ * @method static where(string $string, int|string|null $id)
  */
 class Job extends Model
 {

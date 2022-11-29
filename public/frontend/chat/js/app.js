@@ -4,6 +4,8 @@ const icons = {
     isClicked: '<img src="http://127.0.0.1:8000/frontend/chat/images/icons/chatbox-icon.svg" />',
     isNotClicked: '<img src="http://127.0.0.1:8000/frontend/chat/images/icons/chatbox-icon.svg" />'
 }
+
+
 const chatbox = new InteractiveChatbox(chatButton, chatContent, icons);
 chatbox.display();
 chatbox.toggleIcon(false, chatButton);

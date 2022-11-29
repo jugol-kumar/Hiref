@@ -11,7 +11,6 @@ import { createVbPlugin } from 'vue3-plugin-bootstrap5'
 import VueFeather from 'vue-feather';
 import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
-
 // toaster notifications
 
 import { createToaster } from "@meforma/vue-toaster";
@@ -79,6 +78,8 @@ createInertiaApp({
 
   title: title => `My App - ${title}`
 });
+
+
 
 InertiaProgress.init({
   color: "red",
