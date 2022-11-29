@@ -23,7 +23,9 @@ class RecruitersController extends Controller
 
     public function allJobs(){
 
-        $jobs = Job::where('creator', Auth::id())->with(['company', 'category'])->paginate(10);
+        $jobs = Job::where('creator', Auth::id())->with(['category', 'companyDetails.photos'])->paginate(10);
+
+//        return $jobs;
 
         return view('recruiters.jobs.index', compact('jobs'));
     }
