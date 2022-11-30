@@ -156,6 +156,8 @@
                     </Link>
                 </li>
 
+
+<!--
                 <li class=" nav-item">
                     <Link preserve-scroll class="d-flex align-items-center" href="/panel/transactions">
                         <Icon title="dollar-sign" width="24" height="24" />
@@ -200,6 +202,7 @@
                         </li>
                     </ul>
                 </li>
+-->
 
                 <li class="nav-item" v-if="this.$page.props.auth.user.role === 'admin'">
                     <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/settings`">

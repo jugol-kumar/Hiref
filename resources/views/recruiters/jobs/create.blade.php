@@ -1,4 +1,5 @@
 @extends('recruiters.layout.master')
+@section('title', get_setting('name')." Recruiters Job Create")
 @section('recruiter_content')
 
     <div class="col-lg-9 col-md-8 col-12">

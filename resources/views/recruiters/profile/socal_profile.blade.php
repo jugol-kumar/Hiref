@@ -1,4 +1,5 @@
 @extends('recruiters.layout.master')
+@section('title', get_setting('name')." Recruiters Social Links")
 @section('recruiter_content')
     <div class="col-lg-9 col-md-8 col-12">
     <!-- Card -->

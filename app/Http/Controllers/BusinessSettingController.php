@@ -24,7 +24,17 @@ class BusinessSettingController extends Controller
                 'header_logo' => global_asset(get_setting('header_logo')),
                 'footer_logo' => global_asset(get_setting('footer_logo')),
                 'timezone'    => json_decode(get_setting('timezone')),
-                'country'     => json_decode(get_setting('country'))
+                'country'     => json_decode(get_setting('country')),
+
+                'address'     => get_setting('address'),
+                'phone'       => get_setting('phone'),
+                'email'       => get_setting('email'),
+
+                'instagram_profile'       => get_setting('instagram_profile'),
+                'facebook_profile'        => get_setting('facebook_profile'),
+                'google_drive'            => get_setting('google_drive'),
+                'linkedin_profile'        => get_setting('linkedin_profile'),
+                'twitter_profile'        => get_setting('twitter_profile'),
             ]
         ]);
     }

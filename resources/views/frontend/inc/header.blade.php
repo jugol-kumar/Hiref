@@ -27,7 +27,7 @@
                     <li class="nav-item {{ Route::is('client.recruiter') ? 'menu_active' : ''}}">
                         <a class="nav-link p-4" href="{{ route("client.recruiter") }}">Recruiters</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ Route::is('client.seekers') ? 'menu_active' : ''}}">
                         <a class="nav-link p-4" href="{{ route('client.seekers') }}">Job Seekers</a>
                     </li>
                     <div class="ms-2 mt-3 mt-lg-0 d-flex align-items-end">
@@ -329,8 +329,10 @@
                                     </div>
                                 </div>
                                 <div class="dropdown-divider"></div>
+                                @if(Auth::check() && Auth::user()->role == 'admin')
                                 <ul class="list-unstyled">
-                                    <li class="dropdown-submenu dropstart-lg">
+                                    {{--
+                                        <li class="dropdown-submenu dropstart-lg">
                                         <a
                                             class="dropdown-item dropdown-list-group-item dropdown-toggle"
                                             href="#"
@@ -360,28 +362,49 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    --}}
                                     <li>
-                                        <a
-                                            class="dropdown-item"
-                                            href="profile-edit.html"
-                                        >
+                                        <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
                                             <i class="fe fe-user me-2"></i>Profile
                                         </a>
                                     </li>
                                     <li>
-                                        <a
-                                            class="dropdown-item"
-                                            href="student-subscriptions.html"
-                                        >
-                                            <i class="fe fe-star me-2"></i>Subscription
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ route('setting.index') }}">
                                             <i class="fe fe-settings me-2"></i>Settings
                                         </a>
                                     </li>
                                 </ul>
+                                @elseif(Auth::check() && Auth::user()->role == 'recruiters')
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <a href="{{ route('recruiter.editProfile') }}" class="dropdown-item">
+                                                <i class="fe fe-user me-2"></i>Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('recruiter.security') }}">
+                                                <i class="fe fe-settings me-2"></i>Settings
+                                            </a>
+                                        </li>
+                                    </ul>
+                                @else
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <a href="{{ route('seeker.editProfile') }}" class="dropdown-item">
+                                                <i class="fe fe-user me-2"></i>Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('seeker.security') }}">
+                                                <i class="fe fe-settings me-2"></i>Settings
+                                            </a>
+                                        </li>
+                                    </ul>
+                                @endif
+
+
+
+
                                 <div class="dropdown-divider"></div>
                                 <ul class="list-unstyled">
                                     <li>

@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('phone')->unique();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('about')->nullable();
             $table->date('dob')->nullable();
             $table->enum('role', ['recruiters', 'seekers', 'admin'])->default('seekers');
@@ -38,6 +38,9 @@ return new class extends Migration
             $table->string('linkedin_url', 191)->nullable();
             $table->string('zoom_email', 200)->nullable();
             $table->text('jwt_token')->nullable();
+            $table->integer('sms_otp')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->boolean('is_active')->default(1);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

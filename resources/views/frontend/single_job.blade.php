@@ -1,5 +1,5 @@
 @extends('frontend.layout.master')
-
+@section('title', get_setting('name')." Single Job")
 @push('css')
     <link rel="stylesheet" href="{{ asset('frontend/chat/') }}/css/chat.css">
     <link rel="stylesheet" href="{{ asset('frontend/chat/') }}/css/style.css">
@@ -107,14 +107,6 @@
         </div>
     </div>
 
-    <div id="myDev">
-        <chat-section/>
-    </div>
-
 
 {{--    @include('frontend.inc.chat',  ['reactor' => $job->user])--}}
 @endsection
-
-@push('js')
-    <script src="{{ asset("js/main.js") }}"></script>
-@endpush

@@ -1,6 +1,4 @@
 @extends('frontend.layout.master')
-
-
 @section('content')
 {{--    @include('recruiters.inc.topbar')--}}
     <div class="pt-5 pb-5">

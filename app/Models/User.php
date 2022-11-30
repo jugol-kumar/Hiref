@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * @method static create(array $array)
  * @method static findOrFail(int|string|null $id)
+ * @method static where(string $string, $phone)
  */
 class User extends Authenticatable
 {
@@ -49,6 +50,8 @@ class User extends Authenticatable
         'zoom_email',
         'jwt_token',
         'certificate',
+        'is_verified',
+        'is_active'
     ];
 
     /**

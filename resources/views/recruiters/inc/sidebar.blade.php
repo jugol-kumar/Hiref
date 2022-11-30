@@ -33,15 +33,15 @@
             <span class="navbar-header">Account Settings</span>
             <ul class="list-unstyled ms-n2 mb-0">
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is('recruiter.editProfile') }}">
+                <li class="nav-item {{ Route::is('recruiter.editProfile') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('recruiter.editProfile') }}"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is('recruiter.security') }}">
+                <li class="nav-item {{ Route::is('recruiter.security') ? 'active' : '' }}">
                     <a class="nav-link " href="{{ route('recruiter.security') }}"><i class="fe fe-user nav-icon"></i>Security</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is('recruiter.socialProfile') }}">
+                <li class="nav-item {{ Route::is('recruiter.socialProfile') ? 'active' : ''}}">
                     <a class="nav-link" href="{{ route('recruiter.socialProfile') }}"><i class="fe fe-refresh-cw nav-icon"></i>Social
                         Profiles</a>
                 </li>
