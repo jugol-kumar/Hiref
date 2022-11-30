@@ -20,9 +20,22 @@
                                           aria-controls="v-pills-home"
                                           aria-selected="true">Frontend Setting</Link>
 
-                                    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
+                                    <button class="nav-link" id="v-pills-profile-tab"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-profile"
+                                            type="button" role="tab"
+                                            aria-controls="v-pills-profile"
+                                            aria-selected="false">Profile</button>
+                                    <button class="nav-link" id="v-pills-socials-tab"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-socials"
+                                            type="button" role="tab"
+                                            aria-controls="v-pills-socials"
+                                            aria-selected="false">Social Links</button>
+
                                     <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
                                     <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+
                                 </div>
                             </div>
                             <div class="col-md-9">
@@ -82,7 +95,91 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+                                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                        <div class="card">
+                                            <h2>App Profile</h2>
+                                            <div class="card-body">
+                                                <form class="form form-vertical" @submit.prevent="updateBuisnessSetting()">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <Text type="text" v-model="createForm.address" label="App Address" placeholder="App Address" />
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <Text type="email" v-model="createForm.email" label="App Email" placeholder="example@yourdomain.com" />
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <Text type="text" v-model="createForm.phone" label="App Number" placeholder="+8801*-******" />
+                                                        </div>
+
+                                                        <div class="col-12 mt-2 d-inline-flex align-item-center">
+                                                            <button v-if="!isLoding" type="submit" disabled class="btn btn-primary me-1 waves-effect waves-float waves-light">
+                                                                <div class="spinner-border text-white me-1"  role="status"></div>
+                                                                <span>Submit</span>
+                                                            </button>
+                                                            <button v-else class="btn btn-primary me-1 waves-effect waves-float waves-light">
+                                                                Submit
+                                                            </button>
+
+
+                                                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="v-pills-socials" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                        <div class="card">
+                                            <h2>App Profile</h2>
+                                            <div class="card-body">
+                                                <form class="form form-vertical" @submit.prevent="updateBuisnessSetting()">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <Text type="text" v-model="createForm.facebook_profile" label="Facebook" placeholder="fb.com/me" />
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <Text type="text" v-model="createForm.google_drive" label="Google Drive" placeholder="drive.google.com/me" />
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <Text type="text" v-model="createForm.youtube" label="Youtube" placeholder="chanel.youtube.com/my-changel" />
+                                                        </div>
+
+
+                                                        <div class="col-12">
+                                                            <Text type="text" v-model="createForm.linkedin_profile" label="Linkedin" placeholder="linkedin.com/me" />
+                                                        </div>
+
+
+                                                        <div class="col-12">
+                                                            <Text type="text" v-model="createForm.twitter_profile" label="Twitter" placeholder="twitter.com/me" />
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <Text type="text" v-model="createForm.instagram_profile" label="Instagram" placeholder="instagram.com/me" />
+                                                        </div>
+
+
+                                                        <div class="col-12 mt-2 d-inline-flex align-item-center">
+                                                            <button v-if="!isLoding" type="submit" disabled class="btn btn-primary me-1 waves-effect waves-float waves-light">
+                                                                <div class="spinner-border text-white me-1"  role="status"></div>
+                                                                <span>Submit</span>
+                                                            </button>
+                                                            <button v-else class="btn btn-primary me-1 waves-effect waves-float waves-light">
+                                                                Submit
+                                                            </button>
+
+
+                                                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
                                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                                 </div>
@@ -129,6 +226,17 @@ let createForm = useForm({
     app_details : props.bSettings.details ?? '',
     timezone    : props.bSettings.timezone?.tz ?? '',
     country     : props.bSettings.country?.name ?? '',
+
+    address     : props.bSettings.address ?? '',
+    email       : props.bSettings.email ?? '',
+    phone       : props.bSettings.phone ?? '',
+
+    facebook_profile: props.bSettings.facebook_profile ?? '',
+    youtube: props.bSettings.youtube ?? '',
+    google_drive: props.bSettings.google_drive ?? '',
+    linkedin_profile: props.bSettings.linkedin_profile ?? '',
+    twitter_profile: props.bSettings.twitter_profile ?? '',
+    instagram_profile: props.bSettings.instagram_profile ?? '',
 })
 
 let isLoding = ref({});

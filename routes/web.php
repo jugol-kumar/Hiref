@@ -75,6 +75,8 @@ Route::middleware('guest')->group(function () {
 
     Route::get('seekers/register', [RegisterController::class, 'seekerRegister'])->name('seeker.register');
     Route::post('seeker/create', [RegisterController::class, 'registerSeeker'])->name('registerSeeker');
+
+
 });
 Route::any('logout', [LoginController::class, 'destroy'])->name('logout');
 
@@ -132,7 +134,10 @@ Route::middleware('auth')->group(function () {
             Route::post('update-social-profile', [RecruitersProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
         });
 
-        Route::prefix('seekers')->name('seeker.')->group(function (){
+        Route::prefix('seekers')->name('seeker.')->middleware('seekers')->group(function (){
+            Route::get('verification', [SeekerController::class, 'verification'])->name('verification')->withoutMiddleware('seekers');
+            Route::post('verification-otp', [SeekerController::class, 'verificationCheckOtp'])->name('verificationOtp')->withoutMiddleware('seekers');
+
             Route::get('dashboard', [SeekerController::class, 'dashboard'])->name('dashboard');
 
             Route::post('change-profile-picture', [SeekerProfileController::class, 'changeProfilePicture'])->name('changeProfilePicture');

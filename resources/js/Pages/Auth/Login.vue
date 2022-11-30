@@ -13,25 +13,22 @@
                             <!-- Login basic -->
                             <div class="card mb-0">
                                 <div class="card-body">
-                                    <a href="#" class="brand-logo">
-                                        <img src="../../images/logo.png" />
+                                    <a href="/" class="brand-logo">
+                                        <img :src="$page.props.logo"/>
                                     </a>
-
-                                    <h4 class="card-title text-center mb-1">Welcome to LMS Panel</h4>
-                                    <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
-
+                                    <h2 class="text-center">Login</h2>
                                     <form class="auth-login-form mt-2" @submit.prevent="submit">
                                         <Text v-model="form.email" type="email" label="Email" :error="form.errors.email" placeholder="mail@example.com" />
                                         <Password v-model="form.password" label="Password" :error="form.errors.password" />
                                         <Checkbox v-model="form.remember" label="Remember Me" />
                                         <button class="btn btn-primary w-100" tabindex="4" type="submit" :disabled="form.processing">Sign in</button>
                                     </form>
-                                    <p class="text-center mt-2">
-                                        <span>New on our platform?</span>
-                                        <Link href="/register">
-                                            <span> Create an account</span>
-                                        </Link>
-                                    </p>
+<!--                                    <p class="text-center mt-2">-->
+<!--                                        <span>New on our platform?</span>-->
+<!--                                        <Link href="/register">-->
+<!--                                            <span> Create an account</span>-->
+<!--                                        </Link>-->
+<!--                                    </p>-->
                                 </div>
                             </div>
                             <!-- /Login basic -->

@@ -25,7 +25,8 @@
             </div>
             <ul class="nav navbar-nav align-items-center ms-auto">
                 <dark-toggle />
-                <li class="nav-item dropdown dropdown-notification me-25">
+
+<!--                <li class="nav-item dropdown dropdown-notification me-25">
                     <Link class="nav-link" href="#" data-bs-toggle="dropdown">
                     <Icon title="bell" width="24" height="24" />
                     <span class="badge rounded-pill bg-danger badge-up">5</span></Link>
@@ -81,7 +82,8 @@
                             notifications</Link>
                         </li>
                     </ul>
-                </li>
+                </li>-->
+
                 <li class="nav-item dropdown dropdown-user">
                     <Link class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,11 +97,11 @@
                     </span>
                     </Link>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                        <Link href="/panel/profile" class="dropdown-item">
+                        <Link href="#" class="dropdown-item">
                         <Icon title="user" width="24" height="24" /> Profile
                         </Link>
                         <div class="dropdown-divider"></div>
-                        <Link href="/panel/setting" class="dropdown-item">
+                        <Link  :href="`${this.$page.props.ADMIN_URL}/settings`" class="dropdown-item">
                         <Icon title="settings" width="24" height="24" /> Settings
                         </Link>
                         <Link href="/logout" method="post" class="dropdown-item w-100" as="button">

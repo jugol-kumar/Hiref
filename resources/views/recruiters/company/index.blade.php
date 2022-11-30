@@ -1,7 +1,5 @@
-@php($info = ['show' => true, 'button' => ['route'=>route('recruiter.dashboard'), 'label' => 'Add New Job']])
-@extends('recruiters.layout.master', $info)
-
-
+@extends('recruiters.layout.master')
+@section('title', get_setting('name')." Recruiters Companies")
 @section('recruiter_content')
     <div class="col-lg-9 col-md-8 col-12">
         <!-- Card -->

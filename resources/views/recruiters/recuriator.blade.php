@@ -1,39 +1,38 @@
 @extends('frontend.layout.master')
-
+@section('title', get_setting('name')." Recruiters")
 @push('css')
 
 @endpush
 
 @section('content')
     <!-- Page Content -->
-    <div class="py-md-20 py-12 bg-dark ">
+    <div class="pt-20 bg-dark">
         <div class="container">
             <!-- Hero Section -->
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="mb-4 mb-xl-0 text-center text-md-start">
                         <!-- Caption -->
-                        <h1 class="display-2 fw-bold mb-3 text-white ls-sm ">Become a Vanilla JavaScript Developer </h1>
+                        <h1 class="display-2 fw-bold mb-3 text-white ls-sm ">Become a Recruiters </h1>
                         <p class="mb-4 lead text-white-50">
-                            In this tutorial, we are going to learn about JavaScript (Vanilla JS) - for building
-                            incredible, powerful JavaScript applications.
+                            create new account with your company details and post free jobs for hiring employee or workers
                         </p>
                         <!-- List -->
                         <div class="mb-6 mb-0">
                             <ul class="list-unstyled fs-4 ">
                                 <li class="mb-2 text-white-50"><span class="me-2 "><i
                                             class="fe fe-clock text-warning "></i></span><span
-                                        class="align-top">4 Hours</span></li>
+                                        class="align-top">Create Free Profile</span></li>
                                 <li class="mb-2 text-white-50"><span class="me-2 "><i
                                             class="fe fe-video text-warning "></i></span><span
-                                        class="align-top">12 Videos</span></li>
+                                        class="align-top">Post Free Job</span></li>
                                 <li class="mb-2 text-white-50"><span class="me-2 "><i
                                             class="fe fe-users text-warning "></i></span><span
-                                        class="align-top">10,234+ Enrolled</span></li>
+                                        class="align-top">Hiring Employee</span></li>
                             </ul>
                         </div>
                         <a href="https://www.youtube.com/watch?v=JRzWRZahOVU"
-                           class="popup-youtube btn btn-white btn-lg fs-4">Watch Preview</a>
+                           class="popup-youtube btn btn-white btn-lg fs-4">Join Now</a>
                     </div>
                 </div>
                 <div class="offset-xl-1 col-xl-5 col-lg-6 col-md-12">
@@ -217,6 +216,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Feature section -->
         <div class="py-4 shadow-sm position-relative bg-white mt-3">
             <div class="container">
@@ -267,8 +267,8 @@
                     <div class="col-lg-8 col-md-12 col-12 text-center">
                         <!-- caption -->
                         <span
-                            class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl">Course Description</span>
-                        <h2 class="mb-2 display-4 fw-bold">What will you learn?</h2>
+                            class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl">About Application System</span>
+                        <h2 class="mb-2 display-4 fw-bold">How To work Hiref</h2>
                         <p class="lead">Vanilla JS is a fast, lightweight, cross-platformframework for building
                             incredible, powerful
                             JavaScript applications.</p>
@@ -289,90 +289,86 @@
                                     </div>
                                     <!-- Content -->
                                     <div class="ms-md-4">
-                                        <h2 class="fw-bold mb-1">Introduction to JavaScript <span
+                                        <h2 class="fw-bold mb-1">First Stape<span
                                                 class="badge bg-warning ms-2">Free</span></h2>
-                                        <p class="text-uppercase fs-6 fw-semi-bold mb-0"><span class="text-dark">Courses -
-                      1</span> <span class="ms-3">6 Lessons</span> <span class="ms-3">1 Hour 12 Min</span></p>
+<!--                                        <p class="text-uppercase fs-6 fw-semi-bold mb-0"><span class="text-dark">Courses -
+                      1</span> <span class="ms-3">6 Lessons</span> <span class="ms-3">1 Hour 12 Min</span></p>-->
                                     </div>
                                 </div>
-                                <p class="mb-4 fs-4">In et tempus dui, in porta dolor. Donec molestie a purus ut
-                                    interdum. Donec
-                                    quis felis dignissim, luctus libero ornare.</p>
-                                <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#courseModal">View
-                                    Chapter Details <i
-                                        class="fe fe-plus"></i></a>
+                                <p class="mb-4 fs-4">short descriptions</p>
+                                <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#courseModal">Read More</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
-                        <!-- features -->
+                        <!-- Features -->
                         <div class="card mb-4">
+                            <!-- Card body -->
                             <div class="card-body p-6">
                                 <div class="d-md-flex mb-4">
                                     <div class="mb-3 mb-md-0">
-                                        <img src="{{ asset("frontend") }}/assets/images/svg/feature-icon-2.svg" alt=""
+                                        <!-- Img -->
+                                        <img src="{{ asset("frontend") }}/assets/images/svg/feature-icon-1.svg" alt=""
                                              class=" bg-primary icon-shape icon-xxl rounded-circle">
                                     </div>
+                                    <!-- Content -->
                                     <div class="ms-md-4">
-                                        <h2 class="fw-bold mb-1">JavaScript Beginning</h2>
-                                        <p class="text-uppercase fs-6 fw-semi-bold mb-0"><span class="text-dark">Courses -
-                      2</span> <span class="ms-3">4 Lessons</span> <span class="ms-3">32 Min</span></p>
+                                        <h2 class="fw-bold mb-1">First Stape<span
+                                                class="badge bg-warning ms-2">Free</span></h2>
+                                        <!--                                        <p class="text-uppercase fs-6 fw-semi-bold mb-0"><span class="text-dark">Courses -
+                                                              1</span> <span class="ms-3">6 Lessons</span> <span class="ms-3">1 Hour 12 Min</span></p>-->
                                     </div>
                                 </div>
-                                <p class="mb-4 fs-4">Malesuada fames ac turpis egesta mpor tempus tincidunt. Aliquam
-                                    congue lacus
-                                    ac tellus consectetur malesuada.</p>
-                                <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#courseModal">View
-                                    Chapter Details <i
-                                        class="fe fe-plus"></i></a>
+                                <p class="mb-4 fs-4">short descriptions</p>
+                                <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#courseModal">Read More</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
-                        <!-- features -->
+                        <!-- Features -->
                         <div class="card mb-4">
+                            <!-- Card body -->
                             <div class="card-body p-6">
                                 <div class="d-md-flex mb-4">
                                     <div class="mb-3 mb-md-0">
-                                        <img src="{{ asset("frontend") }}/assets/images/svg/feature-icon-3.svg" alt=""
+                                        <!-- Img -->
+                                        <img src="{{ asset("frontend") }}/assets/images/svg/feature-icon-1.svg" alt=""
                                              class=" bg-primary icon-shape icon-xxl rounded-circle">
                                     </div>
+                                    <!-- Content -->
                                     <div class="ms-md-4">
-                                        <h2 class="fw-bold mb-1">Variables and Constants</h2>
-                                        <p class="text-uppercase fs-6 fw-semi-bold mb-0"><span class="text-dark">Courses -
-                      3</span> <span class="ms-3">8 Lessons</span> <span class="ms-3">10 Min</span></p>
+                                        <h2 class="fw-bold mb-1">First Stape<span
+                                                class="badge bg-warning ms-2">Free</span></h2>
+                                        <!--                                        <p class="text-uppercase fs-6 fw-semi-bold mb-0"><span class="text-dark">Courses -
+                                                              1</span> <span class="ms-3">6 Lessons</span> <span class="ms-3">1 Hour 12 Min</span></p>-->
                                     </div>
                                 </div>
-                                <p class="mb-4 fs-4">Aliquam pulvinar eros a dictur vitae diam imperdiet, ornare turpis
-                                    vequet
-                                    elit nec, imperdiet lectuna liquam qs.</p>
-                                <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#courseModal">View
-                                    Chapter Details <i
-                                        class="fe fe-plus"></i></a>
+                                <p class="mb-4 fs-4">short descriptions</p>
+                                <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#courseModal">Read More</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
-                        <!-- features -->
+                        <!-- Features -->
                         <div class="card mb-4">
+                            <!-- Card body -->
                             <div class="card-body p-6">
                                 <div class="d-md-flex mb-4">
                                     <div class="mb-3 mb-md-0">
-                                        <img src="{{ asset("frontend") }}/assets/images/svg/feature-icon-4.svg" alt=""
+                                        <!-- Img -->
+                                        <img src="{{ asset("frontend") }}/assets/images/svg/feature-icon-1.svg" alt=""
                                              class=" bg-primary icon-shape icon-xxl rounded-circle">
                                     </div>
+                                    <!-- Content -->
                                     <div class="ms-md-4">
-                                        <h2 class="fw-bold mb-1">Types and Operators</h2>
-                                        <p class="text-uppercase fs-6 fw-semi-bold mb-0"><span class="text-dark">Courses -
-                      4</span> <span class="ms-3">10 Lessons</span> <span class="ms-3">32 Min</span></p>
+                                        <h2 class="fw-bold mb-1">First Stape<span
+                                                class="badge bg-warning ms-2">Free</span></h2>
+                                        <!--                                        <p class="text-uppercase fs-6 fw-semi-bold mb-0"><span class="text-dark">Courses -
+                                                              1</span> <span class="ms-3">6 Lessons</span> <span class="ms-3">1 Hour 12 Min</span></p>-->
                                     </div>
                                 </div>
-                                <p class="mb-4 fs-4">In lobortis quam eu augue spendisse imperdiet nec orci ipsum,
-                                    tempus pharetra
-                                    posuere imperdiet, lacinia a nisl.</p>
-                                <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#courseModal">View
-                                    Chapter Details <i
-                                        class="fe fe-plus"></i></a>
+                                <p class="mb-4 fs-4">short descriptions</p>
+                                <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#courseModal">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -380,17 +376,17 @@
             </div>
         </div>
         <!-- Section -->
-        <div class="py-8 py-lg-18">
+        <div class="py-8 py-lg-18 bg-light">
             <div class="container">
                 <div class="row mb-6 align-items-center justify-content-center">
                     <div class="col-md-10">
                         <div class="row align-items-center ">
                             <div class="col-xl-6 col-lg-7 col-md-12 col-12 order-1 text-center text-lg-start ">
                                 <!-- caption -->
-                                <span class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl">YOUR INSTRUCTOR</span>
+                                <span class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl">Best Recurator</span>
                                 <h2 class="mb-2 display-4 fw-bold mb-3">Hi, I’m <span
-                                        class="text-primary">James Davies</span>,
-                                    <br>I will be taking you through lessons.</h2>
+                                        class="text-primary">Demo Rec</span>,
+                                    <br>I will post more then 1.2k post.</h2>
                                 <p class="fs-3 pe-6">Create beautiful website with this Geeks UI template. Get started
                                     building a
                                     site today.</p>
@@ -399,16 +395,16 @@
                                 <!-- Counter -->
                                 <div class="row">
                                     <div class="col-sm mb-3 mb-lg-0">
-                                        <h2 class="h1 fw-bold mb-0 ls-xs">45</h2>
-                                        <p class="mb-0">Lessons</p>
+                                        <h2 class="h1 fw-bold mb-0 ls-xs">5</h2>
+                                        <p class="mb-0">Companies</p>
                                     </div>
                                     <div class="col-lg-5 col-sm mb-3 mb-lg-0">
-                                        <h2 class="h1 fw-bold mb-0 ls-xs">10,500+</h2>
-                                        <p class="mb-0">Students</p>
+                                        <h2 class="h1 fw-bold mb-0 ls-xs">100+</h2>
+                                        <p class="mb-0">Jobs</p>
                                     </div>
                                     <div class="col-sm mb-3 mb-lg-0">
                                         <h2 class="h1 fw-bold mb-0 ls-xs">12+</h2>
-                                        <p class="mb-0">Learning Hours</p>
+                                        <p class="mb-0">Employees</p>
                                     </div>
                                 </div>
                             </div>
@@ -423,13 +419,12 @@
             </div>
         </div>
         <!-- Section -->
-        <div class="pb-8 pb-lg-18">
+        <div class="pb-8 pb-lg-18 bg-light">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-12">
                         <!-- Brand logo -->
-                        <span class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl text-center">Trusted by
-            top-tier product companies</span>
+                        <span class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl text-center">Most popular product companies</span>
                         <div class="row mt-8">
                             <!-- logo -->
                             <div class="col-xl-2 col-lg-4 col-md-4 col-6 text-center mb-4 mb-xl-0">
@@ -466,9 +461,9 @@
                 <div class="row mb-8 justify-content-center">
                     <div class="col-lg-6 col-md-12 col-12 text-center">
                         <!-- caption -->
-                        <span class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl">Testimonials</span>
-                        <h2 class="mb-2 display-4 fw-bold ">What our learners are saying </h2>
-                        <p class="lead">12+ million people are already learning on Geeks</p>
+                        <span class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl">Reviews</span>
+                        <h2 class="mb-2 display-4 fw-bold ">Review For This Rec</h2>
+                        <p class="lead">12+ million people are already get job on {{ get_setting('name') }}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -522,7 +517,7 @@
                 </div>
             </div>
         </div>
-        <div class="py-8 py-lg-18">
+        <div class="py-8 py-lg-18 bg-light">
             <div class="container">
                 <div class="row mb-8 justify-content-center">
                     <div class="col-lg-6 col-md-12 col-12 text-center">
@@ -653,14 +648,14 @@
                 <div class="row justify-content-center text-center">
                     <div class="col-md-9 col-12">
                         <!-- heading -->
-                        <h2 class="display-4 text-white">Join more than 1 million learners worldwide</h2>
-                        <p class="lead text-white px-lg-12 mb-6">Effective learning starts with assessment. Learning a
-                            new skill is
-                            hard work—Signal makes it easier.</p>
+                        <h2 class="display-4 text-white">Join Now Our App</h2>
+                        <p class="lead text-white px-lg-12 mb-6">
+                            Download our app and join today
+                        </p>
                         <!-- button -->
                         <div class="d-grid d-md-block">
-                            <a href="../sign-up.html" class="btn btn-primary mb-2 mb-md-0">Start Learning for Free</a>
-                            <a href="../sign-up.html" class="btn btn-info">Geeks for Business</a>
+                            <a href="#" class="btn btn-primary mb-2 mb-md-0">Start join for Free</a>
+                            <a href="#" class="btn btn-info">{{ get_setting('name') }} for Business</a>
                         </div>
                     </div>
                 </div>
