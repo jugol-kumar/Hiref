@@ -29,25 +29,38 @@
     <link href="{{ asset("frontend") }}/assets/libs/nouislider/dist/nouislider.min.css" rel="stylesheet">
     <link href="{{ asset("frontend") }}/assets/libs/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
 
+    <style>
+        #preeloader{
+            backdrop-filter: blur(10px);
+            width:100%;
+            height:100vh;
+            position:fixed;
+            z-index:10000;
+            {{--            background:url({{ asset("frontend/images/load.gif") }}) no-repeat center center;--}}
+{{--            background:url({{ asset("images/loader.svg") }}) no-repeat center center;--}}
+        }
+    </style>
     @stack('css')
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset("frontend") }}/assets/css/theme.min.css">
     <link rel="stylesheet" href="{{ asset("frontend") }}/assets/css/custom.css">
-    <title>Geeks - Bootstrap 5 Template</title>
+    <title>{{ get_setting('name') }} | @yield('title')</title>
 </head>
 
 <body class="bg-white">
 <div id="frontendDiv">
+    <div style="background-color: inherit;" id="preeloader" class="d-flex align-items-center justify-content-center"></div>
+
 
     <!-- navbar login -->
-@include('frontend.inc.header')
-<!-- Page Content -->
-@yield('content')
-<!-- Page Content -->
+    @include('frontend.inc.header')
+    <!-- Page Content -->
+    @yield('content')
+    <!-- Page Content -->
     <!-- footer -->
-@include('frontend.inc.footer')
-<!-- footer -->
+    @include('frontend.inc.footer')
+    <!-- footer -->
     @include('sweetalert::alert')
 
 </div>
@@ -99,6 +112,13 @@
 <script src="{{ asset('js/main.js') }}"></script>
 <!-- Theme JS -->
 <script src="{{ asset("frontend") }}/assets/js/theme.min.js"></script>
+<script>
+    var preeloader = document.getElementById("preeloader");
+    window.addEventListener('load', function(){
+        preeloader.style.display="none";
+        preeloader.remove();
+    });
+</script>
 
 <script>
     function deleteData(id) {

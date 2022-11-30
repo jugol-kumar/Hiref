@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Job;
 use App\Models\User;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -50,6 +52,11 @@ class DashboardController extends Controller
 
     public function recruiters()
     {
-        return view('recruiters.dashboard');
+        $jobs = Job::where('creator', Auth::id())->latest()->take(10)->get();
+        $totalJobs = Job::count();
+        $inMonthJobs = Job::whereMonth('created_at', Carbon::now()->month)->count();
+
+
+        return view('recruiters.dashboard', compact('jobs', 'totalJobs', 'inMonthJobs'));
     }
 }

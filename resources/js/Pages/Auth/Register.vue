@@ -15,12 +15,9 @@
                             <div class="card mb-0">
                                 <div class="card-body">
                                     <Link href="/" class="brand-logo">
-                                        <img src="../../images/logo.png"/>
+                                        <img :src="$page.props.logo"/>
                                     </Link>
-
-                                    <h4 class="card-title text-center mb-1">Welcome to LMS Panel</h4>
-                                    <p class="card-text mb-2">Please register your account and start the adventure</p>
-
+                                    <h2 class="text-center">Register</h2>
                                     <form class="auth-login-form mt-2" @submit.prevent="submit">
                                         <Text v-model="form.name" type="text" label="Name" :error="form.errors.name"
                                               placeholder="Your name"/>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\BusinessSetting;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('overWriteEnvFile')){
@@ -48,4 +49,38 @@ if (!function_exists('global_asset')){
 
         return $url;
     }
+}
+
+
+
+
+function sendBulkOtpSms($number, $text){
+    $data= array(
+        'username'=> config('bulkotp.bulk_user'),
+        'password'=> config('bulkotp.bulk_pass'),
+        'number'=>"88$number",
+        'message'=>"$text"
+    );
+
+    $ch = curl_init(); // Initialize cURL
+    curl_setopt($ch, CURLOPT_URL, config('bulkotp.bulk_url'));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $smsresult = curl_exec($ch);
+    $p = explode("|",$smsresult);
+    $sendstatus = $p[0];
+
+    return $sendstatus;
+}
+
+function sendOtpUser($phone){
+    $code = rand(0000,9999);
+    $user = User::where('phone', $phone)->first();
+    $user->sms_otp = $code;
+    $user->update();
+    // $text = "আপনার chaldal.ctpbd.com OTP কোড টি হল  ".$code;
+    $text = "Your hiref.info OTP code is ".$code;
+    $status = sendBulkOtpSms($phone, $text);
+    return $status;
 }

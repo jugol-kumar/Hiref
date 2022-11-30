@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +52,7 @@ class HandleInertiaRequests extends Middleware
             'ADMIN_URL' => 'http://127.0.0.1:8000/panel/admin',
             'MAIN_URL' => config('app.url'),
             'appName' => config('app.name'),
-            'logo' => asset('images/HireF-logo.svg')
+            'logo' => Storage::url(get_setting('header_logo'))
         ]);
     }
 }

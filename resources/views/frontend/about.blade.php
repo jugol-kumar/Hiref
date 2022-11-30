@@ -1,8 +1,8 @@
 @extends('frontend.layout.master')
-
+@section('title', 'About Hiref')
 @section('content')
 
-    <!-- Page Content -->
+{{--    <!-- Page Content -->
     <div class="py-10 bg-white">
         <div class="container">
             <div class="row">
@@ -313,7 +313,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
 
 @endsection

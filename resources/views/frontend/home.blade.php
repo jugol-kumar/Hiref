@@ -1,6 +1,5 @@
 @extends('frontend.layout.master')
-
-
+@section('title', get_setting('name')." Home")
 @section('content')
     <div class="bg-light-primary py-lg-14 py-12 bg-cover "
     >
