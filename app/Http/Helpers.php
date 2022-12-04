@@ -75,12 +75,12 @@ function sendBulkOtpSms($number, $text){
 }
 
 function sendOtpUser($phone){
-    $code = rand(0000,9999);
+    $code = rand(1111,9999);
     $user = User::where('phone', $phone)->first();
     $user->sms_otp = $code;
     $user->update();
     // $text = "আপনার chaldal.ctpbd.com OTP কোড টি হল  ".$code;
     $text = "Your hiref.info OTP code is ".$code;
-    $status = sendBulkOtpSms($phone, $text);
-    return $status;
+//    $status = sendBulkOtpSms($phone, $text);
+    return true;
 }

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class SeekerMiddleware
 {
@@ -13,7 +14,7 @@ class SeekerMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return string
      */
     public function handle(Request $request, Closure $next)
     {
@@ -21,14 +22,18 @@ class SeekerMiddleware
         if (Auth::check() && $user->role == 'seekers'){
             if (!$user->is_verified){
                 return redirect()->route('seeker.verification');
-            }elseif(!$user->is_verified && $user->is_active){
-                return "your inactive contact admin";
+            }elseif(!$user->is_active){
+                return redirect()->route('seeker.profileInactive');
             }
-            return $next($request);
+            elseif($user->profileComplete() < 70){
+                return redirect()->route('seeker.firstStep');
+            }
+            else{
+                return $next($request);
+            }
         }
 
         toast('Something want wrong, try again', 'warning');
         return back();
-
     }
 }

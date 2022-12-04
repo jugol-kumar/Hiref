@@ -49,12 +49,15 @@
                         <form action="{{ route('seeker.verificationOtp') }}" method="post" class="mt-5" id="verificationForm">
                             @csrf
                             <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
-                                <input class="m-2 text-center form-control rounded" name="otp" type="text" id="first" maxlength="1" />
-                                <input class="m-2 text-center form-control rounded" name="otp" type="text" id="second" maxlength="1" />
-                                <input class="m-2 text-center form-control rounded" name="otp" type="text" id="third" maxlength="1" />
-                                <input class="m-2 text-center form-control rounded" name="otp" type="text" id="fourth" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" name="otp[]" type="text" id="first" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" name="otp[]" type="text" id="second" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" name="otp[]" type="text" id="third" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" name="otp[]" type="text" id="fourth" maxlength="1" />
                             </div>
-                            <p id="timer"></p>
+                            @error('otp.*')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <p id="timer" style="display: none"></p>
                             <div class="d-flex flex-column">
                                 <button type="button" id="resend" style="display: block" class="btn btn-link text-start">Resend Otp</button>
                                 <button type="button" id="submitOtp" class='btn btn-primary btn-block customBtn'>Verify</button>
@@ -62,22 +65,22 @@
                         </form>
 
 
-<!--                        <div class="title">
+                    <!--                        <div class="title">
                             <h1>Verify OTP</h1>
                             <p class="text-black fs-6">We will send 4 digit one time password <span class="text-success">{{ Auth::user()->phone }}</span> this number. please provide this and verified your number</span></p>
                         </div>
                         <form action="{{ route('seeker.verificationOtp') }}" method="post" class="mt-5">
                             @csrf
-                            <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)' maxlength=1 >
-                            <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)' maxlength=1 >
-                            <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)' maxlength=1 >
-                            <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(4)' maxlength=1 >
-                            <p id="timer"></p>
-                            <div class="d-flex flex-column">
-                                <a href="" id="resend" style="display: none" class="btn btn-link text-start">Resend Otp</a>
-                                <button type="submit" class='btn btn-primary btn-block customBtn'>Verify</button>
-                            </div>
-                        </form>-->
+                        <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)' maxlength=1 >
+                        <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)' maxlength=1 >
+                        <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)' maxlength=1 >
+                        <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(4)' maxlength=1 >
+                        <p id="timer"></p>
+                        <div class="d-flex flex-column">
+                            <a href="" id="resend" style="display: none" class="btn btn-link text-start">Resend Otp</a>
+                            <button type="submit" class='btn btn-primary btn-block customBtn'>Verify</button>
+                        </div>
+                    </form>-->
                     </div>
                 </div>
             </div>
@@ -122,26 +125,33 @@
         // });
 
         document.querySelector("#submitOtp").addEventListener('click', function (){
-           event.preventDefault();
-           document.getElementById('verificationForm').submit();
-           timer();
+            event.preventDefault();
+            document.getElementById('verificationForm').submit();
+            timer();
         });
 
 
         document.querySelector("#resend").addEventListener('click', function (){
+            timer();
             event.preventDefault();
+            $("#timer").empty();
             $("#resend").hide();
-           timer();
+            $("#timer").show();
+
+            $.get("{{ route('seeker.resVCode', ["phone" => base64_encode(Auth::user()->phone)]) }}", function (res){
+                alert("Sms Send Successful....")
+            });
         });
 
 
         function timer(){
-            var sec=10;
+            var sec=30;
             var interval= window.setInterval(function (){
-                if(sec-- === 1){
-                    clearInterval(interval);
+                if(sec-- == 1){
                     $("#resend").show();
-                    $("#timer").remove();
+                    clearInterval(interval);
+                    $("#timer").hide();
+                    // console.log("call here")
                 }
                 $("#timer").html("Please wait "+sec+" second(s) before resending otp");
             }, 1000);
