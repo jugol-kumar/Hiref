@@ -21,15 +21,16 @@ class SeekerMiddleware
             if (!$user->is_verified){
                 return redirect()->route('seeker.verification');
             }
-            }elseif(!$user->is_active){
-                return redirect()->route('seeker.profileInactive');
-            }
-            elseif($user->profileComplete() < 70){
-                return redirect()->route('seeker.firstStep');
-            }
-            else{
-                return $next($request);
-            }
+        }elseif(!$user->is_active){
+            return redirect()->route('seeker.profileInactive');
+        }
+        elseif($user->profileComplete() < 70){
+            return redirect()->route('seeker.firstStep');
+        }
+        else{
+            return $next($request);
+        }
+
         toast('Something want wrong, try again', 'warning');
         return back();
     }

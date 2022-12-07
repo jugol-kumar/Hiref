@@ -53,11 +53,8 @@ class User extends Authenticatable
         'jwt_token',
         'certificate',
         'is_verified',
-<<<<<<< HEAD
-=======
         'sms_otp',
         'email_verified_at',
->>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
         'is_active'
     ];
 
