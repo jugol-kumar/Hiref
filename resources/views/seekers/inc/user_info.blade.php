@@ -19,6 +19,15 @@
                 </div>
                 <div class="lh-1">
                     <h2 class="mb-0 text-capitalize">{{ auth()->user()->name }}</h2>
+<<<<<<< HEAD
+=======
+                    <div class="progress" style="height: 10px; font-size: 8px">
+                        <div class="progress-bar" role="progressbar" style="width: {{ auth()->user()->profileComplete() }}%;"
+                             aria-valuenow="{{ auth()->user()->profileComplete() }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100">{{ auth()->user()->profileComplete() }}%</div>
+                    </div>
+>>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
                     <p class="mb-0 d-block">{{ auth()->user()->email }}</p>
                 </div>
             </div>

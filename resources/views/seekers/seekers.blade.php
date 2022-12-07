@@ -148,12 +148,12 @@
                                                                 </div>
                                                             </div>-->
                                 <!-- Form -->
-                                <form action="{{ route('recruiter.login') }}" method="post">
+                                <form action="{{ route('seekerLogin') }}" method="post">
                                 @csrf
                                     <!-- Password -->
                                     <div class="mb-3">
                                         <label for="password" class="form-label visually-hidden">Phone</label>
-                                        <input type="password" id="password" class="form-control" name="phone" placeholder="01*-******">
+                                        <input type="text" id="password" class="form-control" name="phone" placeholder="01*-******">
                                         @error('phone')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

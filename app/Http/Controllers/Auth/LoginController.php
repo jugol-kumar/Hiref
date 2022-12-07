@@ -84,6 +84,41 @@ class LoginController extends Controller
         ]);
     }
 
+
+    public function seekerLogin(Request $request){
+
+        $user = User::where('phone', $request->phone)->first();
+
+        if($user){
+            $request->session()->regenerate();
+            Auth::login($user);
+            toast('Successfully Login !', 'success');
+            return redirect()->intended('/panel/seekers/dashboard');
+        }else{
+            $request->validate([
+                'phone' => 'required|regex:/(01)[0-9]{9}/|size:11',
+            ], [
+                'phone.required' => 'Phone Number is required',
+                'phone.regex'    => 'Please provide  a valid phone number',
+                'phone.size'     => 'Phone Number must 11 character',
+            ]);
+
+            $user = User::create([
+                'role' => 'seekers',
+                'phone' => $request->phone,
+            ]);
+            Auth::login($user);
+            $request->session()->regenerate();
+            sendOtpUser($user->phone);
+            return redirect()->route('seeker.verification');
+        }
+    }
+
+
+
+
+
+
     public function destroy(Request $request)
     {
         Auth::logout();

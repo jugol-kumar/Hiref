@@ -30,6 +30,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
         'phone',
         'email',
         'photo',
@@ -51,6 +53,11 @@ class User extends Authenticatable
         'jwt_token',
         'certificate',
         'is_verified',
+<<<<<<< HEAD
+=======
+        'sms_otp',
+        'email_verified_at',
+>>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
         'is_active'
     ];
 
@@ -127,9 +134,41 @@ class User extends Authenticatable
     public function recruiter(){
         return $this->hasOne(Recruiter::class, 'user_id');
     }
+    public function seeker(){
+        return $this->hasOne(SeekerProfile::class, 'user_id');
+    }
 
     public function companies(): HasMany
     {
         return $this->hasMany(Company::class);
     }
+
+    public function profileComplete(){
+        $status = 0;
+        $this->name != null ? $status += 5 : $status += 0;
+        $this->email_verified_at != null ? $status += 5 : $status += 0;
+        $this->phone != null ? $status += 10 : $status += 0;
+        $this->is_verified ? $status += 10 : $status += 0;
+        $this->city_id && $this->address != null ? $status += 5 : $status += 0;
+        $this->seeker->category_id && $this->seeker->subcategories != null ? $status += 5 : $status += 0;
+        $this->seeker->division_id != null ? $status += 5 : $status += 0;
+        $this->seeker->district_id != null ? $status += 5 : $status += 0;
+        $this->seeker->upozillas != null ? $status += 5 : $status += 0;
+        $this->seeker->exp_min_sal && $this->seeker->exp_max_sal != null ? $status += 5 : $status += 0;
+        $this->seeker->education_id != null
+        && $this->seeker->education_label_id != null
+        && $this->seeker->uni_end_date != null
+        && $this->seeker->uni_start_date != null
+        && $this->seeker->university != null ? $status += 10 : $status += 0;
+        $this->seeker->resume != null ? $status += 10 : $status += 0;
+        $this->photo != null ? $status += 5 : $status += 0;
+        $this->about != null ? $status += 5 : $status += 0;
+
+        return $status;
+    }
+
+
+
+
+
 }

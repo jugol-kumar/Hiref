@@ -75,7 +75,7 @@ function sendBulkOtpSms($number, $text){
 }
 
 function sendOtpUser($phone){
-    $code = rand(0000,9999);
+    $code = rand(1111,9999);
     $user = User::where('phone', $phone)->first();
     $user->sms_otp = $code;
     $user->update();

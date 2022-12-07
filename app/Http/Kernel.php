@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckVerifiedMiddleware;
 use App\Http\Middleware\RecruitersMidlleware;
 use App\Http\Middleware\SeekerMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -68,6 +69,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'recruiters' => RecruitersMidlleware::class,
-        'seekers'   => SeekerMiddleware::class
+        'seekers'   => SeekerMiddleware::class,
+        'checkVerified'   => CheckVerifiedMiddleware::class
     ];
 }

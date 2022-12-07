@@ -49,12 +49,24 @@
                         <form action="{{ route('seeker.verificationOtp') }}" method="post" class="mt-5" id="verificationForm">
                             @csrf
                             <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+<<<<<<< HEAD
                                 <input class="m-2 text-center form-control rounded" name="otp" type="text" id="first" maxlength="1" />
                                 <input class="m-2 text-center form-control rounded" name="otp" type="text" id="second" maxlength="1" />
                                 <input class="m-2 text-center form-control rounded" name="otp" type="text" id="third" maxlength="1" />
                                 <input class="m-2 text-center form-control rounded" name="otp" type="text" id="fourth" maxlength="1" />
                             </div>
                             <p id="timer"></p>
+=======
+                                <input class="m-2 text-center form-control rounded" name="otp[]" type="text" id="first" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" name="otp[]" type="text" id="second" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" name="otp[]" type="text" id="third" maxlength="1" />
+                                <input class="m-2 text-center form-control rounded" name="otp[]" type="text" id="fourth" maxlength="1" />
+                            </div>
+                            @error('otp.*')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <p id="timer" style="display: none"></p>
+>>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
                             <div class="d-flex flex-column">
                                 <button type="button" id="resend" style="display: block" class="btn btn-link text-start">Resend Otp</button>
                                 <button type="button" id="submitOtp" class='btn btn-primary btn-block customBtn'>Verify</button>
@@ -62,12 +74,17 @@
                         </form>
 
 
+<<<<<<< HEAD
 <!--                        <div class="title">
+=======
+                    <!--                        <div class="title">
+>>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
                             <h1>Verify OTP</h1>
                             <p class="text-black fs-6">We will send 4 digit one time password <span class="text-success">{{ Auth::user()->phone }}</span> this number. please provide this and verified your number</span></p>
                         </div>
                         <form action="{{ route('seeker.verificationOtp') }}" method="post" class="mt-5">
                             @csrf
+<<<<<<< HEAD
                             <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)' maxlength=1 >
                             <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)' maxlength=1 >
                             <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)' maxlength=1 >
@@ -78,6 +95,18 @@
                                 <button type="submit" class='btn btn-primary btn-block customBtn'>Verify</button>
                             </div>
                         </form>-->
+=======
+                        <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)' maxlength=1 >
+                        <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)' maxlength=1 >
+                        <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)' maxlength=1 >
+                        <input class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(4)' maxlength=1 >
+                        <p id="timer"></p>
+                        <div class="d-flex flex-column">
+                            <a href="" id="resend" style="display: none" class="btn btn-link text-start">Resend Otp</a>
+                            <button type="submit" class='btn btn-primary btn-block customBtn'>Verify</button>
+                        </div>
+                    </form>-->
+>>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
                     </div>
                 </div>
             </div>
@@ -122,26 +151,54 @@
         // });
 
         document.querySelector("#submitOtp").addEventListener('click', function (){
+<<<<<<< HEAD
            event.preventDefault();
            document.getElementById('verificationForm').submit();
            timer();
+=======
+            event.preventDefault();
+            document.getElementById('verificationForm').submit();
+            timer();
+>>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
         });
 
 
         document.querySelector("#resend").addEventListener('click', function (){
+<<<<<<< HEAD
             event.preventDefault();
             $("#resend").hide();
            timer();
+=======
+            timer();
+            event.preventDefault();
+            $("#timer").empty();
+            $("#resend").hide();
+            $("#timer").show();
+
+            $.get("{{ route('seeker.resVCode', ["phone" => base64_encode(Auth::user()->phone)]) }}", function (res){
+                alert("Sms Send Successful....")
+            });
+>>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
         });
 
 
         function timer(){
+<<<<<<< HEAD
             var sec=10;
             var interval= window.setInterval(function (){
                 if(sec-- === 1){
                     clearInterval(interval);
                     $("#resend").show();
                     $("#timer").remove();
+=======
+            var sec=30;
+            var interval= window.setInterval(function (){
+                if(sec-- == 1){
+                    $("#resend").show();
+                    clearInterval(interval);
+                    $("#timer").hide();
+                    // console.log("call here")
+>>>>>>> fe87a840882087d64b47c1a5c213b625d2f05417
                 }
                 $("#timer").html("Please wait "+sec+" second(s) before resending otp");
             }, 1000);

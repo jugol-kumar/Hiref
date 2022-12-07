@@ -75,6 +75,7 @@ Route::middleware('guest')->group(function () {
 
     Route::get('seekers/register', [RegisterController::class, 'seekerRegister'])->name('seeker.register');
     Route::post('seeker/create', [RegisterController::class, 'registerSeeker'])->name('registerSeeker');
+    Route::post('seeker/login/or/create', [LoginController::class, 'seekerLogin'])->name('seekerLogin');
 
 
 });
@@ -102,8 +103,6 @@ Route::middleware('auth')->group(function () {
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');
         });
-
-
         Route::prefix('recruiters')->name('recruiter.')->middleware('recruiters')->group(function(){
             Route::get('dashboard', [DashboardController::class, 'recruiters'])->name('dashboard');
 
@@ -135,8 +134,36 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::prefix('seekers')->name('seeker.')->middleware('seekers')->group(function (){
-            Route::get('verification', [SeekerController::class, 'verification'])->name('verification')->withoutMiddleware('seekers');
-            Route::post('verification-otp', [SeekerController::class, 'verificationCheckOtp'])->name('verificationOtp')->withoutMiddleware('seekers');
+
+            // otp verification and profile complete for job seeker
+            Route::withoutMiddleware('seekers')->group(function (){
+                Route::get('verification', [SeekerController::class, 'verification'])->name('verification');
+                Route::post('verification-otp', [SeekerController::class, 'verificationCheckOtp'])->name('verificationOtp');
+                Route::get('resend-verification-code', [SeekerController::class, 'resVCode'])->name('resVCode');
+
+                Route::get('second-step', [SeekerController::class, 'firstStep'])->name('firstStep');
+
+                Route::get('get-sub-categories/{id}', [SeekerController::class, 'subCatById'])->name('getSubCat');
+                Route::get('get-cities-by-state-id/{id}', [SeekerController::class, 'getCities'])->name('getCities');
+                Route::get('get-upozila-by-district-id/{id}', [SeekerController::class, 'getUpozelaByDid'])->name('getupozela');
+
+                // educations
+                Route::get('get-educations-by-educations-label/{id}', [SeekerController::class, 'getEducations'])->name('getEducations');
+
+                // first stape data save
+                Route::post('data-save-first-step', [SeekerController::class, 'firstStapeSave'])->name('firstStapeSave');
+                Route::post('data-save-second-step', [SeekerController::class, 'secondStapeSave'])->name('secondStapeSave');
+                Route::post('data-save-third-step', [SeekerController::class, 'thirdStapeSave'])->name('thirdStapeSave');
+                Route::post('data-save-last-step', [SeekerController::class, 'lastFormSave'])->name('lastFormSave');
+
+                // profile review and goto dashboard
+                Route::get('profile-review', [SeekerController::class, 'profileReview'])->name('profileReview');
+                Route::post('update-seeker-profile-bio', [SeekerController::class, 'updateBio'])->name('updateBio');
+
+                // sekker inactive
+                Route::get('profile-inactive', [SeekerController::class, 'profileInactiveShow'])->name('profileInactive');
+            });
+
 
             Route::get('dashboard', [SeekerController::class, 'dashboard'])->name('dashboard');
 
@@ -151,15 +178,7 @@ Route::middleware('auth')->group(function () {
             Route::view('social-media-url-profile', 'seekers.profile.socal_profile')->name('socialProfile');
             Route::post('update-social-profile', [SeekerProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
         });
-
-
-
-
-
-
     });
-
-
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
